@@ -101,16 +101,18 @@ const defaultNotifications: NotificationItem[] = [
   },
 ]
 
-import { SearchModal } from "@/components/search-modal"
+import { SearchModal, type SearchItem } from "@/components/search-modal"
+import { useNavigate } from "react-router-dom"
+import { useTheme } from "@/hooks/use-theme"
 
-export function DashboardHeader() {
-  const [isDark, setIsDark] = React.useState(() => {
-    if (typeof window !== "undefined") {
-      return document.documentElement.classList.contains("dark")
-    }
-    return false
-  })
+interface DashboardHeaderProps {
+  onSignOut?: () => void
+  onNavigate?: (page: string) => void
+}
 
+export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps) {
+  const navigate = useNavigate()
+  const { isDark, toggleTheme } = useTheme()
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
 
   const [notifications, setNotifications] =
@@ -129,18 +131,6 @@ export function DashboardHeader() {
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
   }, [])
-
-  const toggleTheme = () => {
-    const nextDark = !isDark
-    setIsDark(nextDark)
-    if (nextDark) {
-      document.documentElement.classList.add("dark")
-      localStorage.setItem("theme", "dark")
-    } else {
-      document.documentElement.classList.remove("dark")
-      localStorage.setItem("theme", "light")
-    }
-  }
 
   const markAllAsRead = () => {
     setNotifications((prev) => prev.map((item) => ({ ...item, unread: false })))
@@ -368,7 +358,13 @@ export function DashboardHeader() {
             <DropdownMenuSeparator className="my-1" />
 
             {/* Logout item */}
-            <DropdownMenuItem className="cursor-pointer gap-2.5 py-2 px-3 rounded-lg font-medium text-foreground hover:bg-muted">
+            <DropdownMenuItem
+              onClick={() => {
+                onSignOut?.()
+                navigate("/login")
+              }}
+              className="cursor-pointer gap-2.5 py-2 px-3 rounded-lg font-medium text-foreground hover:bg-muted"
+            >
               <LogOut className="size-4.5 text-muted-foreground" />
               <span>Sign Out</span>
             </DropdownMenuItem>
@@ -378,7 +374,20 @@ export function DashboardHeader() {
     </header>
 
     {/* Search Modal */}
-    <SearchModal open={isSearchOpen} onOpenChange={setIsSearchOpen} />
+    <SearchModal
+      open={isSearchOpen}
+      onOpenChange={setIsSearchOpen}
+      onSelect={(item: SearchItem) => {
+        if (item.id === "login") {
+          onNavigate?.("login")
+          navigate("/login")
+        } else if (item.id === "register") {
+          navigate("/register")
+        } else if (item.url?.startsWith("/")) {
+          navigate(item.url)
+        }
+      }}
+    />
     </>
   )
 }

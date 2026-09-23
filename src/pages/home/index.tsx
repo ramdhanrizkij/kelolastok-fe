@@ -1,4 +1,5 @@
 import { useState, useId } from 'react'
+import { useTheme } from '@/hooks/use-theme'
 import {
   Package,
   Boxes,
@@ -88,7 +89,7 @@ const INITIAL_ITEMS: InventoryItem[] = [
 export default function HomePage() {
   const [items, setItems] = useState<InventoryItem[]>(INITIAL_ITEMS)
   const [search, setSearch] = useState('')
-  const [isDark, setIsDark] = useState(true)
+  const { isDark, toggleTheme } = useTheme()
   const [newItemName, setNewItemName] = useState('')
   const [newItemSku, setNewItemSku] = useState('')
   const [newItemStock, setNewItemStock] = useState('')
@@ -101,16 +102,6 @@ export default function HomePage() {
   const categoryInputId = useId()
   const stockInputId = useId()
   const priceInputId = useId()
-
-  const toggleTheme = () => {
-    const nextDark = !isDark
-    setIsDark(nextDark)
-    if (nextDark) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }
 
   const handleUpdateStock = (id: string, delta: number) => {
     setItems((prev) =>

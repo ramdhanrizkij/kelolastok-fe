@@ -5,7 +5,11 @@ import {
   SidebarProvider,
 } from "@/components/ui/sidebar"
 
-export default function DashboardPage() {
+interface DashboardPageProps {
+  onNavigate?: (page: string) => void
+}
+
+export default function DashboardPage({ onNavigate }: DashboardPageProps) {
   return (
     <SidebarProvider
       style={
@@ -18,7 +22,10 @@ export default function DashboardPage() {
       <AppSidebar />
       <SidebarInset>
         {/* Header Dashboard Sesuai Gambar */}
-        <DashboardHeader />
+        <DashboardHeader
+          onSignOut={() => onNavigate?.("login")}
+          onNavigate={onNavigate}
+        />
 
         {/* Konten Halaman */}
         <div className="flex-1 p-6 md:p-8 space-y-6 max-w-5xl">
