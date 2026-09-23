@@ -101,6 +101,8 @@ const defaultNotifications: NotificationItem[] = [
   },
 ]
 
+import { SearchModal } from "@/components/search-modal"
+
 export function DashboardHeader() {
   const [isDark, setIsDark] = React.useState(() => {
     if (typeof window !== "undefined") {
@@ -109,13 +111,23 @@ export function DashboardHeader() {
     return false
   })
 
+  const [isSearchOpen, setIsSearchOpen] = React.useState(false)
+
   const [notifications, setNotifications] =
     React.useState<NotificationItem[]>(defaultNotifications)
 
   const hasUnread = notifications.some((n) => n.unread)
 
   React.useEffect(() => {
-    setIsDark(document.documentElement.classList.contains("dark"))
+    // Keyboard shortcut for Cmd+K / Ctrl+K
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault()
+        setIsSearchOpen((prev) => !prev)
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
   }, [])
 
   const toggleTheme = () => {
@@ -143,18 +155,20 @@ export function DashboardHeader() {
   }
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b bg-background px-4 md:px-6">
-      {/* Sisi Kiri: Sidebar Trigger (mobile) & Search Icon */}
-      <div className="flex items-center gap-3">
-        <SidebarTrigger className="md:hidden cursor-pointer" />
-        <button
-          type="button"
-          aria-label="Search"
-          className="flex size-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer"
-        >
-          <Search className="size-5" />
-        </button>
-      </div>
+    <>
+      <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b bg-background px-4 md:px-6">
+        {/* Sisi Kiri: Sidebar Trigger (mobile) & Search Icon */}
+        <div className="flex items-center gap-3">
+          <SidebarTrigger className="md:hidden cursor-pointer" />
+          <button
+            type="button"
+            aria-label="Search"
+            onClick={() => setIsSearchOpen(true)}
+            className="flex size-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer"
+          >
+            <Search className="size-5" />
+          </button>
+        </div>
 
       {/* Sisi Kanan: Notifications Dropdown, Theme Toggle, User Profile */}
       <div className="flex items-center gap-2 sm:gap-3">
@@ -362,5 +376,10 @@ export function DashboardHeader() {
         </DropdownMenu>
       </div>
     </header>
+
+    {/* Search Modal */}
+    <SearchModal open={isSearchOpen} onOpenChange={setIsSearchOpen} />
+    </>
   )
 }
+
