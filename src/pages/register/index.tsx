@@ -9,6 +9,7 @@ import {
   ShieldCheck,
 } from "lucide-react"
 import { useNavigate, Link } from "react-router-dom"
+import { useRegister } from "@/hooks/use-auth"
 import { cn } from "cn"
 
 interface RegisterPageProps {
@@ -68,6 +69,7 @@ const FULL_SLIDES: SlideItem[] = [
 
 export default function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
   const navigate = useNavigate()
+  const registerMutation = useRegister()
   const [name, setName] = React.useState("")
   const [username, setUsername] = React.useState("")
   const [email, setEmail] = React.useState("")
@@ -76,7 +78,7 @@ export default function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
   const [confirmPassword, setConfirmPassword] = React.useState("")
   const [showConfirmPassword, setShowConfirmPassword] = React.useState(false)
   const [agreeTerms, setAgreeTerms] = React.useState(true)
-  const [isLoading, setIsLoading] = React.useState(false)
+  const [validationError, setValidationError] = React.useState<string | null>(null)
 
   // Fullscreen Slider State & Auto-play
   const [activeSlide, setActiveSlide] = React.useState(0)
@@ -93,25 +95,28 @@ export default function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    setValidationError(null)
+
     if (password !== confirmPassword) {
-      alert("Konfirmasi kata sandi tidak cocok dengan kata sandi.")
+      setValidationError("Konfirmasi kata sandi tidak cocok dengan kata sandi.")
       return
     }
 
     if (!agreeTerms) {
-      alert("Silakan setujui Syarat & Ketentuan untuk melanjutkan pendaftaran.")
+      setValidationError("Silakan setujui Syarat & Ketentuan untuk melanjutkan pendaftaran.")
       return
     }
 
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-      if (onRegisterSuccess) {
-        onRegisterSuccess()
-      } else {
-        navigate("/inventory/summary")
+    registerMutation.mutate(
+      { name, username, email, password },
+      {
+        onSuccess: () => {
+          if (onRegisterSuccess) {
+            onRegisterSuccess()
+          }
+        },
       }
-    }, 700)
+    )
   }
 
   return (
@@ -146,6 +151,13 @@ export default function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
               Mulai kelola inventori & stok usaha Anda lebih rapi dan efisien.
             </p>
           </div>
+
+          {/* Error Alert */}
+          {(validationError || registerMutation.error) && (
+            <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-xs text-red-600 dark:text-red-400">
+              {validationError || registerMutation.error?.message}
+            </div>
+          )}
 
           {/* Form Input */}
           <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
@@ -332,10 +344,10 @@ export default function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
             {/* Tombol DAFTAR SEKARANG */}
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={registerMutation.isPending}
               className="w-full h-11 rounded-xl bg-[#115e43] hover:bg-[#0c4a34] dark:bg-[#15803d] dark:hover:bg-[#166534] text-white font-bold text-sm tracking-wider uppercase transition-all shadow-md shadow-emerald-950/20 active:scale-[0.99] disabled:opacity-70 cursor-pointer flex items-center justify-center gap-2 mt-2"
             >
-              {isLoading ? (
+              {registerMutation.isPending ? (
                 <span className="inline-block size-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <span>DAFTAR SEKARANG</span>

@@ -104,6 +104,7 @@ const defaultNotifications: NotificationItem[] = [
 import { SearchModal, type SearchItem } from "@/components/search-modal"
 import { useNavigate } from "react-router-dom"
 import { useTheme } from "@/hooks/use-theme"
+import { useProfile, useLogout, useCurrentUser } from "@/hooks/use-auth"
 
 interface DashboardHeaderProps {
   onSignOut?: () => void
@@ -113,6 +114,10 @@ interface DashboardHeaderProps {
 export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps) {
   const navigate = useNavigate()
   const { isDark, toggleTheme } = useTheme()
+  const { data: serverProfile } = useProfile()
+  const storeUser = useCurrentUser()
+  const user = serverProfile || storeUser
+  const logout = useLogout()
   const [isSearchOpen, setIsSearchOpen] = React.useState(false)
 
   const [notifications, setNotifications] =
@@ -294,19 +299,19 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
           >
             <Avatar className="size-8.5">
               <AvatarImage
-                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop"
-                alt="Carolyn Perkins"
+                src={user?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop"}
+                alt={user?.name || "Admin"}
               />
-              <AvatarFallback className="bg-amber-500 text-white font-medium text-xs">
-                CP
+              <AvatarFallback className="bg-emerald-600 text-white font-medium text-xs">
+                {user?.name ? user.name.slice(0, 2).toUpperCase() : "AD"}
               </AvatarFallback>
             </Avatar>
             <div className="hidden sm:flex flex-col text-left leading-none gap-0.5">
-              <span className="text-[11px] font-normal text-muted-foreground">
-                Admin
+              <span className="text-[11px] font-normal text-muted-foreground capitalize">
+                {user?.role || "Admin"}
               </span>
               <span className="text-sm font-semibold text-foreground">
-                Carolyn Perkins
+                {user?.name || "Admin KelolaStok"}
               </span>
             </div>
           </DropdownMenuTrigger>
@@ -320,19 +325,19 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
             <div className="flex items-center gap-3 p-3">
               <Avatar className="size-10">
                 <AvatarImage
-                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop"
-                  alt="Carolyn Perkins"
+                  src={user?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop"}
+                  alt={user?.name || "Admin"}
                 />
-                <AvatarFallback className="bg-amber-500 text-white font-medium text-xs">
-                  CP
+                <AvatarFallback className="bg-emerald-600 text-white font-medium text-xs">
+                  {user?.name ? user.name.slice(0, 2).toUpperCase() : "AD"}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col overflow-hidden">
                 <span className="text-sm font-semibold text-foreground truncate">
-                  Carolyn Perkins
+                  {user?.name || "Admin KelolaStok"}
                 </span>
                 <span className="text-xs text-muted-foreground truncate">
-                  carolyn.p@elstar.com
+                  {user?.email || "admin@kelolastok.com"}
                 </span>
               </div>
             </div>
@@ -360,12 +365,12 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
             {/* Logout item */}
             <DropdownMenuItem
               onClick={() => {
+                logout()
                 onSignOut?.()
-                navigate("/login")
               }}
-              className="cursor-pointer gap-2.5 py-2 px-3 rounded-lg font-medium text-foreground hover:bg-muted"
+              className="cursor-pointer gap-2.5 py-2 px-3 rounded-lg font-medium text-destructive hover:bg-destructive/10"
             >
-              <LogOut className="size-4.5 text-muted-foreground" />
+              <LogOut className="size-4.5 text-destructive" />
               <span>Sign Out</span>
             </DropdownMenuItem>
           </DropdownMenuContent>

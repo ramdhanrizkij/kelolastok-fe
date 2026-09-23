@@ -7,6 +7,7 @@ import {
   ShieldCheck,
 } from "lucide-react"
 import { useNavigate, Link } from "react-router-dom"
+import { useLogin } from "@/hooks/use-auth"
 import { cn } from "cn"
 
 interface LoginPageProps {
@@ -66,11 +67,11 @@ const FULL_SLIDES: SlideItem[] = [
 
 export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const navigate = useNavigate()
-  const [email, setEmail] = React.useState("owner@tokoukm.id")
-  const [password, setPassword] = React.useState("••••••••••••")
+  const loginMutation = useLogin()
+  const [email, setEmail] = React.useState("admin@kelolastok.com")
+  const [password, setPassword] = React.useState("password123")
   const [showPassword, setShowPassword] = React.useState(false)
   const [rememberMe, setRememberMe] = React.useState(true)
-  const [isLoading, setIsLoading] = React.useState(false)
 
   // Fullscreen Slider State & Auto-play
   const [activeSlide, setActiveSlide] = React.useState(0)
@@ -87,15 +88,16 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    setIsLoading(true)
-    setTimeout(() => {
-      setIsLoading(false)
-      if (onLoginSuccess) {
-        onLoginSuccess()
-      } else {
-        navigate("/inventory/summary")
+    loginMutation.mutate(
+      { email, password },
+      {
+        onSuccess: () => {
+          if (onLoginSuccess) {
+            onLoginSuccess()
+          }
+        },
       }
-    }, 600)
+    )
   }
 
   return (
@@ -130,6 +132,13 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
               Welcome back! Please enter your details.
             </p>
           </div>
+
+          {/* Error Alert */}
+          {loginMutation.error && (
+            <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-xs text-red-600 dark:text-red-400">
+              {loginMutation.error.message}
+            </div>
+          )}
 
           {/* Form Input */}
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
@@ -216,10 +225,10 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
             {/* Tombol LOGIN Utama */}
             <button
               type="submit"
-              disabled={isLoading}
+              disabled={loginMutation.isPending}
               className="w-full h-11 rounded-xl bg-[#115e43] hover:bg-[#0c4a34] dark:bg-[#15803d] dark:hover:bg-[#166534] text-white font-bold text-sm tracking-wider uppercase transition-all shadow-md shadow-emerald-950/20 active:scale-[0.99] disabled:opacity-70 cursor-pointer flex items-center justify-center gap-2"
             >
-              {isLoading ? (
+              {loginMutation.isPending ? (
                 <span className="inline-block size-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
               ) : (
                 <span>LOGIN</span>

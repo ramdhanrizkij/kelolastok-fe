@@ -21,7 +21,7 @@ import { navigationData, type NavigationSection } from "@/config/navigation"
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const location = useLocation()
-  const { setOpen, isMobile, setOpenMobile } = useSidebar()
+  const { open, setOpen, isMobile, setOpenMobile } = useSidebar()
 
   // Find active section based on current path
   const findSectionForPath = (path: string): string => {
