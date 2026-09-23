@@ -4,15 +4,9 @@ import {
   Eye,
   EyeOff,
   Boxes,
-  Sun,
-  Moon,
-  ArrowRight,
   ShieldCheck,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react"
 import { useNavigate, Link } from "react-router-dom"
-import { useTheme } from "@/hooks/use-theme"
 import { cn } from "cn"
 
 interface LoginPageProps {
@@ -77,7 +71,6 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
   const [showPassword, setShowPassword] = React.useState(false)
   const [rememberMe, setRememberMe] = React.useState(true)
   const [isLoading, setIsLoading] = React.useState(false)
-  const { isDark, toggleTheme } = useTheme()
 
   // Fullscreen Slider State & Auto-play
   const [activeSlide, setActiveSlide] = React.useState(0)
@@ -92,14 +85,6 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
     return () => clearInterval(interval)
   }, [isPaused])
 
-  const nextSlide = () => {
-    setActiveSlide((prev) => (prev + 1) % FULL_SLIDES.length)
-  }
-
-  const prevSlide = () => {
-    setActiveSlide((prev) => (prev - 1 + FULL_SLIDES.length) % FULL_SLIDES.length)
-  }
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
@@ -108,38 +93,13 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
       if (onLoginSuccess) {
         onLoginSuccess()
       } else {
-        navigate("/dashboard")
+        navigate("/inventory/summary")
       }
     }, 600)
   }
 
   return (
     <div className="min-h-screen w-full grid grid-cols-1 lg:grid-cols-10 bg-background text-foreground transition-colors duration-200">
-      {/* Tombol Tema & Quick Switcher di Pojok Atas */}
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-2 z-30">
-        <button
-          type="button"
-          onClick={toggleTheme}
-          aria-label={isDark ? "Ganti ke light mode" : "Ganti ke dark mode"}
-          title={isDark ? "Light mode" : "Dark mode"}
-          className="flex size-9 items-center justify-center rounded-xl bg-background/80 backdrop-blur-md border border-border shadow-xs text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
-        >
-          {isDark ? (
-            <Sun className="size-4.5 text-amber-400" />
-          ) : (
-            <Moon className="size-4.5" />
-          )}
-        </button>
-
-        <Link
-          to="/dashboard"
-          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-background/80 backdrop-blur-md border border-border shadow-xs text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-muted transition-colors cursor-pointer"
-        >
-          <span>Ke Dashboard</span>
-          <ArrowRight className="size-3.5" />
-        </Link>
-      </div>
-
       {/* Kolom Kiri: Form Login Fullscreen (Lebar 40%) */}
       <div className="lg:col-span-4 min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-12 lg:p-10 xl:p-14 z-20 bg-background">
         {/* Logo Brand Header */}
@@ -349,33 +309,13 @@ export default function LoginPage({ onLoginSuccess }: LoginPageProps) {
           )
         })}
 
-        {/* Overlay Konten di Atas Gambar Penuh (Header Tag + Navigasi + Teks Bawah + Dots) */}
+        {/* Overlay Konten di Atas Gambar Penuh (Header Tag + Teks Bawah + Dots) */}
         <div className="absolute inset-0 z-20 flex flex-col justify-between p-10 lg:p-14 xl:p-16 pointer-events-none">
-          {/* Bar Atas: Kategori / Tag & Tombol Navigasi Panah */}
+          {/* Bar Atas: Kategori / Tag */}
           <div className="flex items-center justify-between pointer-events-auto">
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-xs font-semibold text-white shadow-lg">
               <span className="size-2 rounded-full bg-emerald-400 animate-pulse" />
               <span>{FULL_SLIDES[activeSlide].tag}</span>
-            </div>
-
-            {/* Tombol Panah Prev / Next Navigasi Manual */}
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={prevSlide}
-                aria-label="Slide sebelumnya"
-                className="size-9 rounded-full bg-black/40 hover:bg-black/80 text-white backdrop-blur-md border border-white/20 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer shadow-lg"
-              >
-                <ChevronLeft className="size-4.5" />
-              </button>
-              <button
-                type="button"
-                onClick={nextSlide}
-                aria-label="Slide berikutnya"
-                className="size-9 rounded-full bg-black/40 hover:bg-black/80 text-white backdrop-blur-md border border-white/20 flex items-center justify-center transition-all hover:scale-110 active:scale-95 cursor-pointer shadow-lg"
-              >
-                <ChevronRight className="size-4.5" />
-              </button>
             </div>
           </div>
 

@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, useLocation, Link } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import DashboardLayout from "./layouts/dashboard-layout"
 import LoginPage from "./pages/login"
 import RegisterPage from "./pages/register"
@@ -45,45 +45,8 @@ import ReorderAutomationPage from "./pages/settings/reorder-rules"
 import IntegrationsAPIPage from "./pages/settings/integrations"
 
 export default function App() {
-  const location = useLocation()
-  const isAuthPage = location.pathname === "/login" || location.pathname === "/register"
-
   return (
     <div className="relative min-h-screen">
-      {/* Floating Route Switcher (Bottom-Right) for quick testing */}
-      <div className="fixed bottom-4 right-4 z-50 flex items-center gap-1 p-1 rounded-2xl bg-card/95 backdrop-blur-md border border-border shadow-2xl text-xs">
-        <Link
-          to="/login"
-          className={`px-3 py-1.5 rounded-xl transition-all font-medium ${
-            location.pathname === "/login"
-              ? "bg-[#115e43] text-white shadow-xs font-semibold"
-              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-          }`}
-        >
-          🔑 Login
-        </Link>
-        <Link
-          to="/register"
-          className={`px-3 py-1.5 rounded-xl transition-all font-medium ${
-            location.pathname === "/register"
-              ? "bg-[#115e43] text-white shadow-xs font-semibold"
-              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-          }`}
-        >
-          📝 Register
-        </Link>
-        <Link
-          to="/inventory/summary"
-          className={`px-3 py-1.5 rounded-xl transition-all font-medium ${
-            !isAuthPage
-              ? "bg-emerald-600 text-white shadow-xs font-semibold"
-              : "text-muted-foreground hover:text-foreground hover:bg-muted"
-          }`}
-        >
-          📦 App Dashboard
-        </Link>
-      </div>
-
       {/* React Router Route Definitions */}
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
