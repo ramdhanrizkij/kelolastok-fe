@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Outlet, useNavigate } from "react-router-dom"
-import { AppSidebar } from "@/components/app-sidebar"
-import { DashboardHeader } from "@/components/dashboard-header"
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/shared/components/navigation/app-sidebar"
+import { DashboardHeader } from "@/shared/components/navigation/dashboard-header"
+import { SidebarInset, SidebarProvider } from "@/shared/components/ui/sidebar"
 import { ROUTES } from "@/shared/constants/routes"
 
 export function AppLayout() {

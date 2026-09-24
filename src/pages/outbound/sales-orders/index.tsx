@@ -1,4 +1,4 @@
-import { PagePlaceholder } from "@/components/page-placeholder"
+import { PagePlaceholder } from "@/shared/components/feedback/page-placeholder"
 
 export default function SalesOrdersPage() {
   return (

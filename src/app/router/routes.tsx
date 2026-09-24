@@ -5,8 +5,9 @@ import { ROUTES } from "@/shared/constants/routes"
 
 // Layouts & Auth Pages (Eagerly loaded)
 import AppLayout from "@/app/layouts/AppLayout"
-import LoginPage from "@/pages/login"
-import RegisterPage from "@/pages/register"
+import LoginPage from "@/pages/auth/LoginPage"
+import RegisterPage from "@/pages/auth/RegisterPage"
+const ForgotPasswordPage = lazy(() => import("@/pages/auth/ForgotPasswordPage"))
 
 // Inventory Pages (Lazy loaded)
 const StockSummaryPage = lazy(() => import("@/pages/inventory/summary"))
@@ -405,6 +406,16 @@ export const routes: AppRoute[] = [
     meta: {
       isProtectedRoute: false,
       title: "Daftar Akun Baru",
+    },
+  },
+  {
+    name: "ForgotPassword",
+    path: ROUTES.FORGOT_PASSWORD,
+    type: "page",
+    element: ForgotPasswordPage,
+    meta: {
+      isProtectedRoute: false,
+      title: "Lupa Kata Sandi",
     },
   },
   {

@@ -27,6 +27,5 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
-  "exclude": ["src/routes/example"]
+  "include": ["src"]
 }

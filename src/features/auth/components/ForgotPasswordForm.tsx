@@ -2,7 +2,7 @@ import * as React from "react"
 import { ArrowLeft, CheckCircle2, Loader2 } from "lucide-react"
 
 interface ForgotPasswordFormProps {
-  onBackToLogin: () => void
+  onBackToLogin?: () => void
 }
 
 export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {

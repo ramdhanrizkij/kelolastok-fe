@@ -1,5 +1,5 @@
 import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios"
-import { useAuthStore } from "@/store/use-auth-store"
+import { useAuthStore } from "@/features/auth/stores/auth.store"
 
 export const API_BASE = import.meta.env.VITE_API_BASE_URL || "/api/v1"
 export const TOKEN_KEY = "kelolastok_access_token"
