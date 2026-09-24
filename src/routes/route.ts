@@ -1,2 +1,2 @@
-export * from "./routes"
-export { default } from "./routes"
+export * from "@/app/router"
+export { default } from "@/app/router"

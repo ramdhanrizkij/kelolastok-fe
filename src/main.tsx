@@ -1,12 +1,15 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { ThemeProvider } from '@/components/theme-provider'
 import './index.css'
-import App from './App.tsx'
+import App from '@/app/App'
 
 async function enableMocking() {
-  // Hanya aktifkan MSW jika VITE_ENABLE_MOCK diatur ke "true" di .env
-  if (import.meta.env.VITE_ENABLE_MOCK !== 'true') {
+  // Aktifkan MSW jika VITE_ENABLE_MOCK bernilai "true" atau default aktif saat mode development (kecuali diset "false")
+  const isMockEnabled =
+    import.meta.env.VITE_ENABLE_MOCK === 'true' ||
+    (import.meta.env.DEV && import.meta.env.VITE_ENABLE_MOCK !== 'false')
+
+  if (!isMockEnabled) {
     return
   }
 
@@ -21,9 +24,7 @@ async function enableMocking() {
 enableMocking().then(() => {
   createRoot(document.getElementById('root')!).render(
     <StrictMode>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
+      <App />
     </StrictMode>,
   )
 })

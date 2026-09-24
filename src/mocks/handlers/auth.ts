@@ -6,6 +6,7 @@ export interface MockUser {
   username: string
   email: string
   role: string
+  permissions?: string[]
   avatar?: string
   storeName?: string
   createdAt: string
@@ -19,6 +20,7 @@ const mockUsers: MockUser[] = [
     username: "budisantoso",
     email: "owner@tokoukm.id",
     role: "Owner / Admin",
+    permissions: ["*"],
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop",
     storeName: "Toko Berkah Mandiri",
     createdAt: "2026-01-15T08:00:00Z",

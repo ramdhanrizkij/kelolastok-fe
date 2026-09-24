@@ -1,52 +1,15 @@
 import { isAxiosError } from "axios"
-import { apiClient, TOKEN_KEY, REFRESH_KEY, USER_KEY } from "@/lib/api-client"
-import { useAuthStore } from "@/store/use-auth-store"
+import { apiClient, TOKEN_KEY, REFRESH_KEY, USER_KEY } from "@/shared/lib/axios"
+import { useAuthStore } from "@/features/auth/stores/auth.store"
+import type {
+  User,
+  AuthTokens,
+  AuthResponse,
+  ProfileResponse,
+  RefreshResponse,
+} from "@/features/auth/types/auth.types"
 
-export interface User {
-  id: string
-  name: string
-  username: string
-  email: string
-  role: string
-  avatar?: string
-  storeName?: string
-  createdAt?: string
-}
-
-export interface AuthTokens {
-  accessToken: string
-  refreshToken: string
-  expiresIn?: number
-}
-
-export interface AuthResponse {
-  success: boolean
-  message?: string
-  data?: {
-    user: User
-    accessToken: string
-    refreshToken: string
-    expiresIn?: number
-  }
-}
-
-export interface ProfileResponse {
-  success: boolean
-  message?: string
-  data?: {
-    user: User
-  }
-}
-
-export interface RefreshResponse {
-  success: boolean
-  message?: string
-  data?: {
-    accessToken: string
-    refreshToken: string
-    expiresIn?: number
-  }
-}
+export type { User, AuthTokens, AuthResponse, ProfileResponse, RefreshResponse }
 
 // Helper untuk mengekstrak pesan error yang user-friendly dari Axios error
 export function getErrorMessage(error: unknown, fallbackMessage = "Terjadi kesalahan pada sistem."): string {
