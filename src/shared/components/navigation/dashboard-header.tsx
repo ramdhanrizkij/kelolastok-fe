@@ -150,7 +150,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b bg-background px-4 md:px-6">
+      <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-sidebar-border/60 bg-background px-4 md:px-6">
         {/* Sisi Kiri: Sidebar Trigger (mobile) & Search Icon */}
         <div className="flex items-center gap-3">
           <SidebarTrigger className="md:hidden cursor-pointer" />
@@ -181,7 +181,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
             <DropdownMenuContent
               align="end"
               sideOffset={8}
-              className="w-80 sm:w-90 p-0 rounded-2xl shadow-xl border bg-popover overflow-hidden"
+              className="w-80 sm:w-90 p-0 rounded-2xl shadow-xl border border-border bg-popover overflow-hidden"
             >
               {/* Header Notifikasi */}
               <div className="flex items-center justify-between px-4 py-3.5">
@@ -318,7 +318,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
             <DropdownMenuContent
               align="end"
               sideOffset={8}
-              className="w-56 p-1 rounded-xl shadow-lg border bg-popover"
+              className="w-56 p-1 rounded-xl shadow-lg border border-border bg-popover"
             >
               {/* Header info user di dalam dropdown */}
               <div className="flex items-center gap-3 p-3">

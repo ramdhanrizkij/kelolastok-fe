@@ -1,68 +1,198 @@
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
+  /* Centralized Figma Color Styles & Palette - Light Theme */
+  --primary: #1378F0;
+  --primary-active: #086DE3;
+  --primary-accent: #0D4894;
+  --primary-transparent: rgba(19, 120, 240, 0.15);
+  --primary-soft: #E7F2FF;
+
+  --success: #0BC33F;
+  --success-active: #06B838;
+  --success-accent: #085C22;
+  --success-transparent: rgba(11, 195, 63, 0.15);
+  --success-soft: #E1FCE9;
+
+  --danger: #ED143B;
+  --danger-active: #D80D31;
+  --danger-accent: #991930;
+  --danger-transparent: rgba(237, 20, 59, 0.15);
+  --danger-soft: #FFEAEE;
+
+  --info: #4921EA;
+  --info-active: #3D17D4;
+  --info-accent: #271086;
+  --info-transparent: rgba(73, 33, 234, 0.15);
+  --info-soft: #F0ECFF;
+
+  --warning: #FEC524;
+  --warning-active: #F3B70F;
+  --warning-accent: #888800;
+  --warning-transparent: rgba(254, 197, 36, 0.2);
+  --warning-soft: #FFFAE9;
+
+  --dark-color: #000000;
+  --dark-active: #1C1F26;
+  --dark-transparent: rgba(0, 0, 0, 0.3);
+  --dark-soft: #F6F6F6;
+
+  --light-color: #FFFFFF;
+  --light-active: #FAFAFA;
+  --light-transparent: rgba(255, 255, 255, 0.7);
+  --light-soft: #FDFDFD;
+
+  /* Greys Palette (Light) */
+  --grey-50: #F9F9F9;
+  --grey-100: #F0F1F6;
+  --grey-200: #E2E4ED;
+  --grey-300: #D8DFE9;
+  --grey-400: #C9CEDA;
+  --grey-500: #A4ABBF;
+  --grey-600: #78829D;
+  --grey-700: #485675;
+  --grey-800: #27314B;
+  --grey-900: #111B37;
+  --grey-950: #030A1E;
+
+  /* Semantic UI Tokens (Light) */
+  --background: #FFFFFF;
+  --foreground: #111B37;
+  --card: #FFFFFF;
+  --card-foreground: #111B37;
+  --popover: #FFFFFF;
+  --popover-foreground: #111B37;
+
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #F0F1F6;
+  --secondary-foreground: #111B37;
+
+  --muted: #F9F9F9;
+  --muted-foreground: #78829D;
+
+  --accent: #E7F2FF;
+  --accent-foreground: #1378F0;
+
+  --destructive: #ED143B;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #E2E4ED;
+  --input: #E2E4ED;
+  --ring: #1378F0;
+
   --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+
+  /* Charts */
+  --chart-1: #1378F0;
+  --chart-2: #0BC33F;
+  --chart-3: #FEC524;
+  --chart-4: #ED143B;
+  --chart-5: #4921EA;
+
+  /* Sidebar Tokens (Light) */
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #111B37;
+  --sidebar-primary: #1378F0;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #E7F2FF;
+  --sidebar-accent-foreground: #1378F0;
+  --sidebar-border: #E2E4ED;
+  --sidebar-ring: #1378F0;
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* Centralized Figma Color Styles & Palette - Dark Theme */
+  --primary: #1378F0;
+  --primary-active: #2D8EFF;
+  --primary-accent: #1378F0;
+  --primary-transparent: rgba(19, 120, 240, 0.2);
+  --primary-soft: #0A1726;
+
+  --success: #0BC33F;
+  --success-active: #24DB5B;
+  --success-accent: #0BC33F;
+  --success-transparent: rgba(11, 195, 63, 0.2);
+  --success-soft: #0A2412;
+
+  --danger: #ED143B;
+  --danger-active: #FF2F54;
+  --danger-accent: #ED143B;
+  --danger-transparent: rgba(237, 20, 59, 0.2);
+  --danger-soft: #2B0D13;
+
+  --info: #521AF2;
+  --info-active: #6129FF;
+  --info-accent: #7241FF;
+  --info-transparent: rgba(114, 65, 255, 0.25);
+  --info-soft: #1A0E3D;
+
+  --warning: #FEC524;
+  --warning-active: #FFD96C;
+  --warning-accent: #FEC524;
+  --warning-transparent: rgba(254, 197, 36, 0.2);
+  --warning-soft: #2B2004;
+
+  --dark-color: #FFFFFF;
+  --dark-active: #DFDFDF;
+  --dark-transparent: rgba(55, 55, 55, 0.3);
+  --dark-soft: #F9F9F9;
+
+  --light-color: #0A0A0D;
+  --light-active: #0E0E10;
+  --light-transparent: rgba(10, 10, 13, 0.7);
+  --light-soft: #0F0F12;
+
+  /* Greys Palette (Dark) */
+  --grey-50: #141419;
+  --grey-100: #1B1C22;
+  --grey-200: #26272F;
+  --grey-300: #363843;
+  --grey-400: #464852;
+  --grey-500: #636674;
+  --grey-600: #808293;
+  --grey-700: #9A9CAE;
+  --grey-800: #B5B7C8;
+  --grey-900: #DBDCE4;
+  --grey-950: #F5F5F5;
+
+  /* Semantic UI Tokens (Dark) */
+  --background: #0A0A0D;
+  --foreground: #F5F5F5;
+  --card: #141419;
+  --card-foreground: #F5F5F5;
+  --popover: #141419;
+  --popover-foreground: #F5F5F5;
+
+  --primary-foreground: #FFFFFF;
+
+  --secondary: #26272F;
+  --secondary-foreground: #F5F5F5;
+
+  --muted: #1B1C22;
+  --muted-foreground: #808293;
+
+  --accent: #26272F;
+  --accent-foreground: #F5F5F5;
+
+  --destructive: #ED143B;
+  --destructive-foreground: #FFFFFF;
+
+  --border: #26272F;
+  --input: #26272F;
+  --ring: #2D8EFF;
+
+  /* Charts */
+  --chart-1: #1378F0;
+  --chart-2: #24DB5B;
+  --chart-3: #FFD96C;
+  --chart-4: #FF2F54;
+  --chart-5: #6129FF;
+
+  /* Sidebar Tokens (Dark) */
+  --sidebar: #0A0A0D;
+  --sidebar-foreground: #F5F5F5;
+  --sidebar-primary: #1378F0;
+  --sidebar-accent: #0A1726;
+  --sidebar-accent-foreground: #2D8EFF;
+  --sidebar-border: #26272F;
+  --sidebar-ring: #2D8EFF;
 }
