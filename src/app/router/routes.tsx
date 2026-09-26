@@ -10,6 +10,8 @@ import RegisterPage from "@/pages/auth/RegisterPage"
 const ForgotPasswordPage = lazy(() => import("@/pages/auth/ForgotPasswordPage"))
 const ResetPasswordPage = lazy(() => import("@/pages/auth/ResetPasswordPage"))
 const NotFoundPage = lazy(() => import("@/pages/error/NotFoundPage"))
+const DashboardPage = lazy(() => import("@/pages/dashboard/DashboardPage"))
+
 
 
 
@@ -59,14 +61,17 @@ const IntegrationsAPIPage = lazy(() => import("@/pages/settings/integrations"))
  */
 export const dashboardRoutes: AppRoute[] = [
   {
-    name: "DashboardRedirect",
+    name: "Dashboard",
     path: ROUTES.DASHBOARD,
-    type: "redirect",
+    type: "page",
+    element: DashboardPage,
     meta: {
       isProtectedRoute: true,
-      redirection: ROUTES.INVENTORY.SUMMARY,
+      permissions: [PERMISSIONS.INVENTORY_READ],
+      title: "Executive Dashboard",
     },
   },
+
 
   // --- Inventory & Stock ---
   {

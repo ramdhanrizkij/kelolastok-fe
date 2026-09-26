@@ -1,4 +1,5 @@
 import {
+  LayoutDashboard,
   Box,
   ArrowLeftRight,
   Warehouse,
@@ -36,9 +37,24 @@ export interface NavigationSection {
 
 export const navigationData: NavigationSection[] = [
   {
+    id: "dashboard",
+    title: "Dashboard",
+    icon: LayoutDashboard,
+    subGroups: [
+      {
+        title: "Overview",
+        icon: LayoutDashboard,
+        items: [
+          { label: "Executive Dashboard", path: "/dashboard" },
+        ],
+      },
+    ],
+  },
+  {
     id: "inventory",
     title: "Inventory & Stock",
     icon: Box,
+
     subGroups: [
       {
         title: "Stock Management",

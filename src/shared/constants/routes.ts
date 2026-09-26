@@ -11,7 +11,8 @@ export const ROUTES = {
 
   // Dashboard & Default Entry
   DASHBOARD: "/dashboard",
-  DEFAULT: "/inventory/summary",
+  DEFAULT: "/dashboard",
+
 
   // Inventory & Stock
   INVENTORY: {
