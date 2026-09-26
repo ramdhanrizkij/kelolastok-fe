@@ -8,6 +8,10 @@ import AppLayout from "@/app/layouts/AppLayout"
 import LoginPage from "@/pages/auth/LoginPage"
 import RegisterPage from "@/pages/auth/RegisterPage"
 const ForgotPasswordPage = lazy(() => import("@/pages/auth/ForgotPasswordPage"))
+const ResetPasswordPage = lazy(() => import("@/pages/auth/ResetPasswordPage"))
+const NotFoundPage = lazy(() => import("@/pages/error/NotFoundPage"))
+
+
 
 // Inventory Pages (Lazy loaded)
 const StockSummaryPage = lazy(() => import("@/pages/inventory/summary"))
@@ -419,19 +423,53 @@ export const routes: AppRoute[] = [
     },
   },
   {
+    name: "ResetPassword",
+    path: ROUTES.RESET_PASSWORD,
+    type: "page",
+    element: ResetPasswordPage,
+    meta: {
+      isProtectedRoute: false,
+      title: "Ubah Kata Sandi",
+    },
+  },
+  {
+    name: "ChangePasswordAlias",
+    path: "/change-password",
+    type: "page",
+    element: ResetPasswordPage,
+    meta: {
+      isProtectedRoute: false,
+      title: "Ubah Kata Sandi",
+    },
+  },
+
+  {
     name: "AppLayout",
     type: "group",
     element: AppLayout,
     children: dashboardRoutes,
   },
   {
+    name: "NotFound",
+    path: ROUTES.NOT_FOUND,
+    type: "page",
+    element: NotFoundPage,
+    meta: {
+      isProtectedRoute: false,
+      title: "404 - Halaman Tidak Ditemukan",
+    },
+  },
+  {
     name: "NotFoundCatchAll",
     path: "*",
-    type: "redirect",
+    type: "page",
+    element: NotFoundPage,
     meta: {
-      redirection: ROUTES.LOGIN,
+      isProtectedRoute: false,
+      title: "404 - Halaman Tidak Ditemukan",
     },
   },
 ]
+
 
 export default routes

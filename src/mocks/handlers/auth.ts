@@ -12,6 +12,34 @@ export interface MockUser {
   createdAt: string
 }
 
+export const MOCK_ALL_PERMISSIONS = [
+  "*",
+  "inventory:read",
+  "inventory:write",
+  "inventory:opname",
+  "inventory:transfer",
+  "inventory:alerts",
+  "inventory:batches",
+  "inbound:read",
+  "inbound:orders",
+  "inbound:receiving",
+  "inbound:returns",
+  "outbound:read",
+  "outbound:orders",
+  "outbound:picking",
+  "outbound:deliveries",
+  "outbound:returns",
+  "warehouses:read",
+  "warehouses:manage",
+  "contacts:read",
+  "contacts:manage",
+  "reports:read",
+  "reports:export",
+  "settings:read",
+  "settings:manage",
+  "settings:roles",
+]
+
 // In-memory mock database of users
 const mockUsers: MockUser[] = [
   {
@@ -20,10 +48,21 @@ const mockUsers: MockUser[] = [
     username: "budisantoso",
     email: "owner@tokoukm.id",
     role: "Owner / Admin",
-    permissions: ["*"],
+    permissions: MOCK_ALL_PERMISSIONS,
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop",
     storeName: "Toko Berkah Mandiri",
     createdAt: "2026-01-15T08:00:00Z",
+  },
+  {
+    id: "usr-002",
+    name: "Administrator KelolaStok",
+    username: "admin",
+    email: "admin@kelolastok.com",
+    role: "Owner / Admin",
+    permissions: MOCK_ALL_PERMISSIONS,
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=250&auto=format&fit=crop",
+    storeName: "Toko Utama KelolaStok",
+    createdAt: "2026-01-10T08:00:00Z",
   },
 ]
 
@@ -94,13 +133,18 @@ export const authHandlers = [
         name: email.split("@")[0] || "User Demo",
         username: (email.split("@")[0] || "user").toLowerCase().replace(/[^a-z0-9]/g, ""),
         email: email,
-        role: "Store Manager",
+        role: "Owner / Admin",
+        permissions: MOCK_ALL_PERMISSIONS,
         avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop",
         storeName: "Toko Retail UMKM",
         createdAt: new Date().toISOString(),
       }
       mockUsers.push(user)
+    } else {
+      user.role = "Owner / Admin"
+      user.permissions = MOCK_ALL_PERMISSIONS
     }
+
 
     const tokens = generateTokens(user.id)
 
@@ -169,7 +213,8 @@ export const authHandlers = [
       name,
       username: username.toLowerCase().trim(),
       email: email.toLowerCase().trim(),
-      role: "Owner / Administrator",
+      role: "Owner / Admin",
+      permissions: MOCK_ALL_PERMISSIONS,
       avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop",
       storeName: `${name} Store`,
       createdAt: new Date().toISOString(),
@@ -215,7 +260,12 @@ export const authHandlers = [
       const payload = JSON.parse(atob(parts[1]))
       const userId = payload.sub
 
-      const user = mockUsers.find((u) => u.id === userId) || mockUsers[0]
+      let user = mockUsers.find((u) => u.id === userId) || mockUsers[0]
+      user = {
+        ...user,
+        role: "Owner / Admin",
+        permissions: MOCK_ALL_PERMISSIONS,
+      }
       return HttpResponse.json({
         success: true,
         data: {
@@ -227,11 +277,16 @@ export const authHandlers = [
       return HttpResponse.json({
         success: true,
         data: {
-          user: mockUsers[0],
+          user: {
+            ...mockUsers[0],
+            role: "Owner / Admin",
+            permissions: MOCK_ALL_PERMISSIONS,
+          },
         },
       })
     }
   }),
+
 
   // 4. POST /api/v1/auth/refresh
   http.post("/api/v1/auth/refresh", async ({ request }) => {
@@ -285,4 +340,86 @@ export const authHandlers = [
       )
     }
   }),
+
+  // 5. POST /api/v1/auth/forgot-password
+  http.post("/api/v1/auth/forgot-password", async ({ request }) => {
+    await delay(500)
+
+    let body: { email?: string }
+    try {
+      body = (await request.json()) as { email?: string }
+    } catch {
+      return HttpResponse.json(
+        { success: false, message: "Format payload request tidak valid" },
+        { status: 400 }
+      )
+    }
+
+    const { email } = body
+    if (!email || !email.includes("@")) {
+      return HttpResponse.json(
+        {
+          success: false,
+          message: "Alamat email tidak valid. Harap periksa kembali email Anda.",
+        },
+        { status: 400 }
+      )
+    }
+
+    // Generate mock reset token & link
+    const mockToken = `rst_${Date.now().toString(36)}_${Math.random().toString(36).substring(2, 8)}`
+    const resetLink = `/reset-password?token=${mockToken}&email=${encodeURIComponent(email)}`
+
+    return HttpResponse.json({
+      success: true,
+      message: "Tautan pemulihan kata sandi telah berhasil dikirim ke email Anda.",
+      data: {
+        resetToken: mockToken,
+        resetLink,
+      },
+    })
+  }),
+
+  // 6. POST /api/v1/auth/reset-password
+  http.post("/api/v1/auth/reset-password", async ({ request }) => {
+    await delay(600)
+
+    let body: { token?: string; password?: string; email?: string }
+    try {
+      body = (await request.json()) as typeof body
+    } catch {
+      return HttpResponse.json(
+        { success: false, message: "Format payload request tidak valid" },
+        { status: 400 }
+      )
+    }
+
+    const { token, password } = body
+
+    if (!token) {
+      return HttpResponse.json(
+        {
+          success: false,
+          message: "Token reset kata sandi tidak valid atau telah kedaluwarsa.",
+        },
+        { status: 400 }
+      )
+    }
+
+    if (!password || password.length < 8) {
+      return HttpResponse.json(
+        {
+          success: false,
+          message: "Kata sandi baru minimal harus terdiri dari 8 karakter.",
+        },
+        { status: 400 }
+      )
+    }
+
+    return HttpResponse.json({
+      success: true,
+      message: "Kata sandi Anda berhasil diperbarui. Silakan masuk dengan kata sandi baru.",
+    })
+  }),
 ]
+

@@ -3,8 +3,19 @@ import { useNavigate } from "react-router-dom"
 import { loginApi } from "../api/login"
 import { logoutApi } from "../api/logout"
 import { registerApi } from "../api/register"
+import { forgotPasswordApi } from "../api/forgot-password"
+import { resetPasswordApi } from "../api/reset-password"
 import { useAuthStore } from "../stores/auth.store"
-import type { User, AuthResponse, LoginCredentials, RegisterPayload } from "../types/auth.types"
+import type {
+  User,
+  AuthResponse,
+  LoginCredentials,
+  RegisterPayload,
+  ForgotPasswordPayload,
+  ForgotPasswordResponse,
+  ResetPasswordPayload,
+  ResetPasswordResponse,
+} from "../types/auth.types"
 import { apiClient } from "@/shared/lib/axios"
 import { ROUTES } from "@/shared/constants/routes"
 
@@ -53,6 +64,18 @@ export function useRegister() {
   })
 }
 
+export function useForgotPassword() {
+  return useMutation<ForgotPasswordResponse, Error, ForgotPasswordPayload>({
+    mutationFn: (payload) => forgotPasswordApi(payload),
+  })
+}
+
+export function useResetPassword() {
+  return useMutation<ResetPasswordResponse, Error, ResetPasswordPayload>({
+    mutationFn: (payload) => resetPasswordApi(payload),
+  })
+}
+
 export function useProfile() {
   const isAuthenticated = useAuthStore((state) => state.isAuthenticated)
 
@@ -81,3 +104,4 @@ export function useLogout() {
     navigate(ROUTES.LOGIN)
   }
 }
+

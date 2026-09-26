@@ -16,3 +16,9 @@ export interface RegisterFormValues {
   storeName?: string
   agreeTerms?: boolean
 }
+
+export interface ResetPasswordFormValues {
+  password: string
+  confirmPassword: string
+}
+

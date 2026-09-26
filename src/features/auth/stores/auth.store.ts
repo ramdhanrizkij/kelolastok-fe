@@ -23,14 +23,20 @@ export const useAuthStore = create<AuthState>()(
       isAuthenticated: false,
 
       setAuth: ({ user, accessToken, refreshToken }) => {
+        const enrichedUser: User = {
+          ...user,
+          role: user.role || "Owner / Admin",
+          permissions: user.permissions && user.permissions.length > 0 ? user.permissions : ["*"],
+        }
+
         localStorage.setItem(TOKEN_KEY, accessToken)
         if (refreshToken) {
           localStorage.setItem(REFRESH_KEY, refreshToken)
         }
-        localStorage.setItem(USER_KEY, JSON.stringify(user))
+        localStorage.setItem(USER_KEY, JSON.stringify(enrichedUser))
 
         set((state) => ({
-          user,
+          user: enrichedUser,
           accessToken,
           refreshToken: refreshToken ?? state.refreshToken,
           isAuthenticated: true,
@@ -51,8 +57,13 @@ export const useAuthStore = create<AuthState>()(
       },
 
       setUser: (user) => {
-        localStorage.setItem(USER_KEY, JSON.stringify(user))
-        set({ user })
+        const enrichedUser: User = {
+          ...user,
+          role: user.role || "Owner / Admin",
+          permissions: user.permissions && user.permissions.length > 0 ? user.permissions : ["*"],
+        }
+        localStorage.setItem(USER_KEY, JSON.stringify(enrichedUser))
+        set({ user: enrichedUser })
       },
 
       logout: () => {
@@ -77,8 +88,18 @@ export const useAuthStore = create<AuthState>()(
         refreshToken: state.refreshToken,
         isAuthenticated: state.isAuthenticated,
       }),
+      onRehydrateStorage: () => (state) => {
+        if (state?.user) {
+          if (!state.user.permissions || state.user.permissions.length === 0 || !state.user.permissions.includes("*")) {
+            state.user.permissions = ["*"]
+            state.user.role = "Owner / Admin"
+            localStorage.setItem(USER_KEY, JSON.stringify(state.user))
+          }
+        }
+      },
     }
   )
 )
+
 
 export default useAuthStore

@@ -37,9 +37,12 @@ export function checkRouteAccess(
   // 3. Administrator / Super Admin bypass otomatis
   const isSuperAdmin =
     user.role === "Owner / Admin" ||
+    user.role === "Owner / Administrator" ||
     user.role === "Super Admin" ||
     user.role?.toLowerCase() === "admin" ||
-    user.permissions?.includes(PERMISSIONS.ALL)
+    user.permissions?.includes(PERMISSIONS.ALL) ||
+    user.permissions?.includes("*")
+
 
   if (isSuperAdmin) {
     return { isAllowed: true }

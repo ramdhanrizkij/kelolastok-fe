@@ -57,3 +57,28 @@ export interface RefreshResponse {
     expiresIn?: number
   }
 }
+
+export interface ForgotPasswordPayload {
+  email: string
+}
+
+export interface ForgotPasswordResponse {
+  success: boolean
+  message: string
+  data?: {
+    resetLink?: string
+    resetToken?: string
+  }
+}
+
+export interface ResetPasswordPayload {
+  token: string
+  password: string
+  email?: string
+}
+
+export interface ResetPasswordResponse {
+  success: boolean
+  message: string
+}
+
