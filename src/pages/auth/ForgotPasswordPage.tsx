@@ -10,13 +10,13 @@ export function ForgotPasswordPage() {
         {/* Brand Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-[#5b51d8] text-white shadow-md shadow-indigo-500/25">
+            <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/25">
               <Boxes className="size-5" />
             </div>
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tight text-foreground leading-tight flex items-center gap-1.5">
                 KelolaStok
-                <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded-md bg-indigo-500/10 text-[#5b51d8] dark:bg-indigo-400/20 dark:text-indigo-300">
+                <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded-md bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-soft">
                   UMKM
                 </span>
               </span>

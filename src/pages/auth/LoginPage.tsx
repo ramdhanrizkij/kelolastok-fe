@@ -106,13 +106,13 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
       <div className="lg:col-span-4 min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-12 lg:p-10 xl:p-14 z-20 bg-background">
         {/* Logo Brand Header */}
         <div className="flex items-center gap-2.5">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-[#5b51d8] text-white shadow-md shadow-indigo-500/25">
+          <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/25">
             <Boxes className="size-5" />
           </div>
           <div className="flex flex-col">
             <span className="text-xl font-bold tracking-tight text-foreground leading-tight flex items-center gap-1.5">
               KelolaStok
-              <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded-md bg-indigo-500/10 text-[#5b51d8] dark:bg-indigo-400/20 dark:text-indigo-300">
+              <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded-md bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-soft">
                 UMKM
               </span>
             </span>
@@ -158,7 +158,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Your Email"
-                  className="w-full h-11 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-[#115e43] focus:ring-2 focus:ring-[#115e43]/20 focus:outline-none dark:focus:border-emerald-500 dark:focus:ring-emerald-500/20"
+                  className="w-full h-11 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
                 />
                 <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground/70">
                   <Mail className="size-4.5" />
@@ -182,7 +182,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Password"
-                  className="w-full h-11 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-[#115e43] focus:ring-2 focus:ring-[#115e43]/20 focus:outline-none dark:focus:border-emerald-500 dark:focus:ring-emerald-500/20"
+                  className="w-full h-11 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
                 />
                 <button
                   type="button"
@@ -206,7 +206,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="size-3.5 rounded border-input text-[#115e43] focus:ring-[#115e43]/30 accent-[#115e43] cursor-pointer"
+                  className="size-3.5 rounded border-input text-primary focus:ring-primary/30 accent-primary cursor-pointer"
                 />
                 <span>Remember me</span>
               </label>
@@ -222,10 +222,10 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
             <button
               type="submit"
               disabled={loginMutation.isPending}
-              className="w-full h-11 rounded-xl bg-[#115e43] hover:bg-[#0c4a34] dark:bg-[#15803d] dark:hover:bg-[#166534] text-white font-bold text-sm tracking-wider uppercase transition-all shadow-md shadow-emerald-950/20 active:scale-[0.99] disabled:opacity-70 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full h-11 rounded-xl bg-primary hover:bg-primary-active text-primary-foreground font-bold text-sm tracking-wider uppercase transition-all shadow-md shadow-primary/25 active:scale-[0.99] disabled:opacity-70 cursor-pointer flex items-center justify-center gap-2"
             >
               {loginMutation.isPending ? (
-                <span className="inline-block size-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                <span className="inline-block size-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
               ) : (
                 <span>LOGIN</span>
               )}
@@ -267,7 +267,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
             Don&apos;t have an account?{" "}
             <Link
               to="/register"
-              className="font-semibold text-[#115e43] dark:text-emerald-400 hover:underline"
+              className="font-semibold text-primary hover:text-primary-active hover:underline"
             >
               Sign up
             </Link>
