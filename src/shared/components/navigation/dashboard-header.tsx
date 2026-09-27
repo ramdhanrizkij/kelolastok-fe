@@ -105,6 +105,7 @@ import { SearchModal, type SearchItem } from "./search-modal"
 import { useNavigate } from "react-router-dom"
 import { useTheme } from "@/shared/hooks/use-theme"
 import { useProfile, useLogout, useCurrentUser } from "@/features/auth/hooks/use-auth"
+import { ROUTES } from "@/shared/constants/routes"
 
 export interface DashboardHeaderProps {
   onSignOut?: () => void
@@ -344,12 +345,18 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
               <DropdownMenuSeparator className="my-1" />
 
               {/* Menu Items */}
-              <DropdownMenuItem className="cursor-pointer gap-2.5 py-2 px-3 rounded-lg font-medium text-foreground hover:bg-muted">
+              <DropdownMenuItem
+                onClick={() => navigate(ROUTES.ACCOUNT.PROFILE)}
+                className="cursor-pointer gap-2.5 py-2 px-3 rounded-lg font-medium text-foreground hover:bg-muted"
+              >
                 <CircleUser className="size-4.5 text-muted-foreground" />
                 <span>Profile</span>
               </DropdownMenuItem>
 
-              <DropdownMenuItem className="cursor-pointer gap-2.5 py-2 px-3 rounded-lg font-medium text-foreground hover:bg-muted">
+              <DropdownMenuItem
+                onClick={() => navigate(ROUTES.ACCOUNT.PROFILE)}
+                className="cursor-pointer gap-2.5 py-2 px-3 rounded-lg font-medium text-foreground hover:bg-muted"
+              >
                 <Settings className="size-4.5 text-muted-foreground" />
                 <span>Account Setting</span>
               </DropdownMenuItem>

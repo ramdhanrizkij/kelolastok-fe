@@ -13,6 +13,10 @@ export const ROUTES = {
   DASHBOARD: "/dashboard",
   DEFAULT: "/dashboard",
 
+  ACCOUNT: {
+    PROFILE: "/account/profile",
+  },
+
 
   // Inventory & Stock
   INVENTORY: {
