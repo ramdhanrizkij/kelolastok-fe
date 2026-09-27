@@ -11,6 +11,7 @@ const ForgotPasswordPage = lazy(() => import("@/pages/auth/ForgotPasswordPage"))
 const ResetPasswordPage = lazy(() => import("@/pages/auth/ResetPasswordPage"))
 const NotFoundPage = lazy(() => import("@/pages/error/NotFoundPage"))
 const DashboardPage = lazy(() => import("@/pages/dashboard/DashboardPage"))
+const ProfileSettingsPage = lazy(() => import("@/pages/account/profile"))
 
 
 
@@ -60,6 +61,16 @@ const IntegrationsAPIPage = lazy(() => import("@/pages/settings/integrations"))
  * Daftar rute anak di dalam AppLayout (Dashboard).
  */
 export const dashboardRoutes: AppRoute[] = [
+  {
+    name: "ProfileSettings",
+    path: ROUTES.ACCOUNT.PROFILE,
+    type: "page",
+    element: ProfileSettingsPage,
+    meta: {
+      isProtectedRoute: true,
+      title: "Profil & Perusahaan",
+    },
+  },
   {
     name: "Dashboard",
     path: ROUTES.DASHBOARD,

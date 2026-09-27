@@ -458,7 +458,7 @@ export function DashboardPage() {
               onClick={() => setPeriod("7d")}
               className={cn(
                 "px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer",
-                period === "7d" ? "bg-background text-foreground shadow-2xs font-semibold" : "text-muted-foreground hover:text-foreground"
+                period === "7d" ? "bg-gray-200 text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
               )}
             >
               7 Hari
@@ -468,7 +468,7 @@ export function DashboardPage() {
               onClick={() => setPeriod("this_month")}
               className={cn(
                 "px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer",
-                period === "this_month" ? "bg-background text-foreground shadow-2xs font-semibold" : "text-muted-foreground hover:text-foreground"
+                period === "this_month" ? "bg-gray-200 text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
               )}
             >
               Bulan Ini
@@ -478,7 +478,7 @@ export function DashboardPage() {
               onClick={() => setPeriod("this_year")}
               className={cn(
                 "px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer",
-                period === "this_year" ? "bg-background text-foreground shadow-2xs font-semibold" : "text-muted-foreground hover:text-foreground"
+                period === "this_year" ? "bg-gray-200 text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
               )}
             >
               Tahun Ini
