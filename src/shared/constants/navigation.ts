@@ -155,6 +155,7 @@ export const navigationData: NavigationSection[] = [
         icon: Sliders,
         items: [
           { label: "Profil & Perusahaan", path: "/account/profile" },
+          { label: "Theme Configuration", path: "/settings/theme" },
           { label: "Categories & Units (UOM)", path: "/settings/categories" },
           { label: "User Roles & Access", path: "/settings/roles" },
           { label: "Reorder Automation", path: "/settings/reorder-rules" },

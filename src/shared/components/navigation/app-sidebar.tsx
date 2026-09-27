@@ -87,12 +87,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       */}
       <Sidebar
         collapsible="none"
-        className="w-[61px] border-r border-sidebar-border bg-sidebar flex flex-col shrink-0"
+        className="sidebar-theme-rail w-[61px] border-r border-sidebar-border bg-sidebar flex flex-col shrink-0"
       >
         <SidebarHeader className="flex h-16 items-center justify-center p-0 border-b border-sidebar-border/60">
           <Link
             to="/inventory/summary"
-            className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/25 hover:bg-primary-active hover:scale-105 transition-all"
+            className="sidebar-theme-logo flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/25 hover:bg-primary-active hover:scale-105 transition-all"
             title="KelolaStok UMKM"
           >
             <Boxes className="size-5" />
@@ -113,11 +113,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     to={firstSubItemPath}
                     onClick={() => handlePrimaryClick(section.id, firstSubItemPath)}
                     className={cn(
-                      "flex size-10 items-center justify-center rounded-xl transition-all duration-200",
+                      "sidebar-theme-nav flex size-10 items-center justify-center rounded-xl transition-all duration-200",
                       isSectionActive
                         ? "bg-primary-soft text-primary dark:bg-primary-soft dark:text-primary-active font-bold shadow-xs ring-1 ring-primary/20"
                         : "text-muted-foreground hover:text-primary hover:bg-primary-soft/60"
                     )}
+                    data-active={isSectionActive}
                     aria-label={section.title}
                   >
                     <Icon className="size-5" />

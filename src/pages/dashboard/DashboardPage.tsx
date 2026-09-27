@@ -26,10 +26,14 @@ import {
 import { ROUTES } from "@/shared/constants/routes"
 import { useAuthStore } from "@/features/auth/stores/auth.store"
 import { cn } from "@/shared/lib/utils"
+import { useTheme } from "@/shared/hooks/use-theme"
+import { THEME_VARIANTS } from "@/shared/config/theme.config"
 
 export function DashboardPage() {
   const navigate = useNavigate()
   const user = useAuthStore((s) => s.user)
+  const { variant } = useTheme()
+  const brandColors = THEME_VARIANTS.find((item) => item.value === variant) ?? THEME_VARIANTS[0]
   const [period, setPeriod] = React.useState<"7d" | "30d" | "this_month" | "this_year">("this_month")
 
   // Theme detector for ApexCharts
@@ -73,7 +77,7 @@ export function DashboardPage() {
     theme: {
       mode: isDark ? "dark" : "light",
     },
-    colors: ["#2563eb", "#10b981"],
+    colors: [brandColors.color, "#10b981"],
     stroke: {
       curve: "smooth",
       width: 2.5,
@@ -130,7 +134,7 @@ export function DashboardPage() {
         size: 5,
       },
     },
-  }), [isDark])
+  }), [isDark, brandColors.color])
 
   const movementSeries = React.useMemo(() => [
     {
@@ -161,7 +165,7 @@ export function DashboardPage() {
       "Perabotan & Rumah",
       "Kosmetik & Perawatan",
     ],
-    colors: ["#2563eb", "#06b6d4", "#10b981", "#f59e0b", "#8b5cf6"],
+    colors: [brandColors.color, "#06b6d4", "#10b981", "#f59e0b", "#8b5cf6"],
     stroke: {
       width: 2,
       colors: [isDark ? "#0f172a" : "#ffffff"],
@@ -212,7 +216,7 @@ export function DashboardPage() {
         formatter: (val: number) => `${val}% dari Total Inventori`,
       },
     },
-  }), [isDark])
+  }), [isDark, brandColors.color])
 
   const categorySeries = [36, 25, 19, 12, 8]
 
@@ -236,7 +240,7 @@ export function DashboardPage() {
         distributed: true,
       },
     },
-    colors: ["#2563eb", "#3b82f6", "#06b6d4", "#10b981"],
+    colors: [brandColors.color, brandColors.activeColor, "#06b6d4", "#10b981"],
     dataLabels: {
       enabled: true,
       textAnchor: "start",
@@ -282,7 +286,7 @@ export function DashboardPage() {
         formatter: (val: number) => `${val}% Kapasitas Ruang Terisi`,
       },
     },
-  }), [isDark])
+  }), [isDark, brandColors.color, brandColors.activeColor])
 
   const warehouseSeries = [
     {
@@ -344,12 +348,12 @@ export function DashboardPage() {
         stops: [0, 100],
       },
     },
-    colors: ["#2563eb"],
+    colors: [brandColors.color],
     stroke: {
       dashArray: 4,
     },
     labels: ["Skor Kesehatan"],
-  }), [isDark])
+  }), [isDark, brandColors.color])
 
   const healthSeries = [92]
 

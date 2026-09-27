@@ -271,6 +271,7 @@ export default function ProfileSettingsPage() {
               <FormFooter message={message} label="Ubah password" />
             </form>
           )}
+
         </section>
       </div>
     </div>

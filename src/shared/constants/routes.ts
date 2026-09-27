@@ -67,6 +67,7 @@ export const ROUTES = {
 
   // Settings
   SETTINGS: {
+    THEME: "/settings/theme",
     CATEGORIES: "/settings/categories",
     ROLES: "/settings/roles",
     REORDER_RULES: "/settings/reorder-rules",
