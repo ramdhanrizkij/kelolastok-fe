@@ -52,6 +52,7 @@ const MovementHistoryPage = lazy(() => import("@/pages/reports/movements"))
 const DeadStockAnalysisPage = lazy(() => import("@/pages/reports/dead-stock"))
 
 // Settings Pages (Lazy loaded)
+const ThemeConfigurationPage = lazy(() => import("@/pages/settings/theme"))
 const CategoriesUnitsPage = lazy(() => import("@/pages/settings/categories"))
 const UserRolesAccessPage = lazy(() => import("@/pages/settings/roles"))
 const ReorderAutomationPage = lazy(() => import("@/pages/settings/reorder-rules"))
@@ -350,6 +351,17 @@ export const dashboardRoutes: AppRoute[] = [
   },
 
   // --- Settings ---
+  {
+    name: "ThemeConfiguration",
+    path: ROUTES.SETTINGS.THEME,
+    type: "page",
+    element: ThemeConfigurationPage,
+    meta: {
+      isProtectedRoute: true,
+      permissions: [PERMISSIONS.SETTINGS_MANAGE],
+      title: "Theme Configuration",
+    },
+  },
   {
     name: "CategoriesUnits",
     path: ROUTES.SETTINGS.CATEGORIES,

@@ -1,11 +1,16 @@
 import * as React from "react"
+import type { ThemeVariant } from "@/shared/config/theme.config"
 
 export type Theme = "light" | "dark"
 
 export interface ThemeContextType {
   theme: Theme
   isDark: boolean
+  variant: ThemeVariant
+  themedSidebar: boolean
   setTheme: (theme: Theme) => void
+  setVariant: (variant: ThemeVariant) => void
+  setThemedSidebar: (enabled: boolean) => void
   toggleTheme: () => void
 }
 

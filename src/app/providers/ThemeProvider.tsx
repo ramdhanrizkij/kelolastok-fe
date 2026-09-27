@@ -5,6 +5,11 @@ import {
   ThemeContext,
   type Theme,
 } from "@/shared/lib/theme"
+import {
+  THEME_CONFIG,
+  THEME_VARIANTS,
+  type ThemeVariant,
+} from "@/shared/config/theme.config"
 
 interface ThemeProviderProps {
   children: React.ReactNode
@@ -13,6 +18,22 @@ interface ThemeProviderProps {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setThemeState] = React.useState<Theme>(() => {
     return getThemeCookie()
+  })
+  const [preferences, setPreferences] = React.useState(() => {
+    const fallback = {
+      variant: THEME_CONFIG.defaultVariant,
+      themedSidebar: THEME_CONFIG.defaultThemedSidebar,
+    }
+    try {
+      const saved = JSON.parse(localStorage.getItem(THEME_CONFIG.storageKey) || "null") as Partial<typeof fallback> | null
+      const validVariant = THEME_VARIANTS.some((item) => item.value === saved?.variant)
+      return {
+        variant: validVariant ? saved!.variant as ThemeVariant : fallback.variant,
+        themedSidebar: typeof saved?.themedSidebar === "boolean" ? saved.themedSidebar : fallback.themedSidebar,
+      }
+    } catch {
+      return fallback
+    }
   })
 
   // Sinkronisasi kelas 'dark' pada element <html> dan simpan ke cookie saat theme berubah
@@ -26,6 +47,13 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     setThemeCookie(theme)
   }, [theme])
 
+  React.useLayoutEffect(() => {
+    const root = document.documentElement
+    root.dataset.themeVariant = preferences.variant
+    root.dataset.themedSidebar = String(preferences.themedSidebar)
+    localStorage.setItem(THEME_CONFIG.storageKey, JSON.stringify(preferences))
+  }, [preferences])
+
   const setTheme = React.useCallback((nextTheme: Theme) => {
     setThemeState(nextTheme)
   }, [])
@@ -38,10 +66,14 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     () => ({
       theme,
       isDark: theme === "dark",
+      variant: preferences.variant,
+      themedSidebar: preferences.themedSidebar,
       setTheme,
+      setVariant: (variant: ThemeVariant) => setPreferences((current) => ({ ...current, variant })),
+      setThemedSidebar: (themedSidebar: boolean) => setPreferences((current) => ({ ...current, themedSidebar })),
       toggleTheme,
     }),
-    [theme, setTheme, toggleTheme]
+    [theme, preferences, setTheme, toggleTheme]
   )
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>
