@@ -154,12 +154,12 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
       <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-sidebar-border/60 bg-background px-4 md:px-6">
         {/* Sisi Kiri: Sidebar Trigger (mobile) & Search Icon */}
         <div className="flex items-center gap-3">
-          <SidebarTrigger className="md:hidden cursor-pointer" />
+          <SidebarTrigger className="md:hidden cursor-pointer size-10 rounded-lg hover:text-primary hover:bg-primary/10" />
           <button
             type="button"
             aria-label="Search"
             onClick={() => setIsSearchOpen(true)}
-            className="flex size-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer"
+            className="flex size-10 items-center justify-center rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95 transition-all cursor-pointer border border-transparent hover:border-primary/20"
           >
             <Search className="size-5" />
           </button>
@@ -170,7 +170,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
           {/* Notifikasi Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger
-              className="relative flex size-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer outline-none"
+              className="relative flex size-10 items-center justify-center rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95 transition-all cursor-pointer outline-none border border-transparent hover:border-primary/20"
               aria-label="Notifications"
             >
               <Bell className="size-5" />
@@ -193,7 +193,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
                   type="button"
                   onClick={markAllAsRead}
                   title="Mark all as read"
-                  className="text-muted-foreground hover:text-foreground p-1 rounded-md hover:bg-muted/60 transition-colors cursor-pointer"
+                  className="text-muted-foreground hover:text-primary p-1 rounded-md hover:bg-primary/10 transition-colors cursor-pointer"
                 >
                   <Mail className="size-5" />
                   <span className="sr-only">Mark all as read</span>
@@ -283,7 +283,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
             onClick={toggleTheme}
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
             title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            className="flex size-9 items-center justify-center rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted/60 transition-colors cursor-pointer"
+            className="flex size-10 items-center justify-center rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95 transition-all cursor-pointer border border-transparent hover:border-primary/20"
           >
             {isDark ? (
               <Sun className="size-5 text-amber-400 transition-transform duration-200 hover:rotate-45" />
@@ -295,7 +295,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
           {/* Profil Pengguna Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger
-              className="flex items-center gap-3 rounded-lg py-1 px-1.5 hover:bg-muted/60 transition-colors cursor-pointer outline-none"
+              className="flex items-center gap-2.5 rounded-xl h-10 px-2 hover:bg-primary/10 active:scale-98 transition-all cursor-pointer outline-none border border-transparent hover:border-primary/20"
             >
               <Avatar className="size-8.5">
                 <AvatarImage
