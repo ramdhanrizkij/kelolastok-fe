@@ -4,6 +4,7 @@ import {
   Boxes,
   ArrowLeft,
   ChevronDown,
+  ChevronRight,
   X,
 } from "lucide-react"
 
@@ -21,37 +22,65 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const location = useLocation()
   const { open, setOpen, isMobile, setOpenMobile } = useSidebar()
 
-  // Find active section based on current path
-  const findSectionForPath = (path: string): string => {
+  // Find precisely which navigation item and section is active globally
+  const activeNavMatch = React.useMemo(() => {
+    const cleanPath = location.pathname.replace(/\/+$/, "") || "/"
+
+    // 1. Exact match check across all sections & items
     for (const section of navigationData) {
       for (const group of section.subGroups) {
         for (const item of group.items) {
-          if (path === item.path || (item.path !== "/" && path.startsWith(item.path))) {
-            return section.id
+          const itemClean = item.path.replace(/\/+$/, "") || "/"
+          if (cleanPath === itemClean) {
+            return { sectionId: section.id, itemPath: item.path }
           }
         }
       }
     }
-    return navigationData[0]?.id || "inventory"
-  }
 
-  const matchedSectionId = findSectionForPath(location.pathname)
-  const [userSelectedPrimary, setUserSelectedPrimary] = React.useState<{ path: string; id: string } | null>(null)
-  const activePrimary = userSelectedPrimary?.path === location.pathname ? userSelectedPrimary.id : matchedSectionId
+    // 2. Prefix match for sub-routes
+    let bestMatch: { sectionId: string; itemPath: string } | null = null
+    let maxMatchLen = -1
 
-  // Track expanded subgroups
-  const [openCategories, setOpenCategories] = React.useState<Record<string, boolean>>({
-    "Stock Management": true,
-    "Inbound (Barang Masuk)": true,
-    "Outbound (Barang Keluar)": true,
-    Management: true,
-    Parties: true,
-    Analytics: true,
-    "System Configuration": true,
-  })
+    for (const section of navigationData) {
+      for (const group of section.subGroups) {
+        for (const item of group.items) {
+          const itemClean = item.path.replace(/\/+$/, "") || "/"
+          if (itemClean !== "/" && cleanPath.startsWith(itemClean + "/") && itemClean.length > maxMatchLen) {
+            maxMatchLen = itemClean.length
+            bestMatch = { sectionId: section.id, itemPath: item.path }
+          }
+        }
+      }
+    }
+
+    if (bestMatch) {
+      return bestMatch
+    }
+
+    // Fallback to first section and item
+    const firstSection = navigationData[0]
+    return {
+      sectionId: firstSection?.id || "dashboard",
+      itemPath: firstSection?.subGroups[0]?.items[0]?.path || "/dashboard",
+    }
+  }, [location.pathname])
+
+  // Allows user to click a rail icon to browse that section's submenus
+  const [browsingSectionId, setBrowsingSectionId] = React.useState<string | null>(null)
+
+  // When pathname changes (navigation completes), reset browsing state to match active route
+  React.useEffect(() => {
+    setBrowsingSectionId(null)
+  }, [location.pathname])
+
+  const activePrimarySectionId = browsingSectionId || activeNavMatch.sectionId
+
+  // Track expanded subgroups (default all open)
+  const [openCategories, setOpenCategories] = React.useState<Record<string, boolean>>({})
 
   const currentSection: NavigationSection =
-    navigationData.find((sec) => sec.id === activePrimary) || navigationData[0]
+    navigationData.find((sec) => sec.id === activePrimarySectionId) || navigationData[0]
 
   const toggleCategory = (title: string) => {
     setOpenCategories((prev) => ({
@@ -60,16 +89,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }))
   }
 
-  const handlePrimaryClick = (id: string, defaultPath: string) => {
-    setUserSelectedPrimary({ path: defaultPath, id })
-    const section = navigationData.find((sec) => sec.id === id)
-    if (section) {
-      const allOpen: Record<string, boolean> = {}
-      section.subGroups.forEach((sg) => {
-        allOpen[sg.title] = true
-      })
-      setOpenCategories(allOpen)
-    }
+  const handlePrimaryClick = (id: string) => {
+    setBrowsingSectionId(id)
     if (!open) {
       setOpen(true)
     }
@@ -82,8 +103,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       {...props}
     >
       {/* 
-        COLUMN 1: Primary Nav Rail (Lebar ~61px)
-        Tetap terlihat baik mode desktop maupun mobile (saat sheet mobile terbuka)
+        COLUMN 1: Primary Nav Rail (~61px)
       */}
       <Sidebar
         collapsible="none"
@@ -92,40 +112,38 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarHeader className="flex h-16 items-center justify-center p-0 border-b border-sidebar-border/60">
           <Link
             to="/inventory/summary"
-            className="sidebar-theme-logo flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/25 hover:bg-primary-active hover:scale-105 transition-all"
+            className="sidebar-theme-logo flex size-11 items-center justify-center rounded-xl bg-primary hover:bg-primary-active text-primary-foreground shadow-md shadow-primary/25 hover:scale-105 active:scale-95 transition-all"
             title="KelolaStok UMKM"
           >
-            <Boxes className="size-5" />
+            <Boxes className="size-5.5" />
           </Link>
         </SidebarHeader>
 
-        <SidebarContent className="flex flex-col items-center py-4 gap-2 overflow-y-auto overflow-x-hidden">   
-          {/* Icon List Section Utama */}
-          <div className="flex flex-col gap-1.5 w-full items-center">
+        <SidebarContent className="flex flex-col items-center py-3 gap-2 overflow-y-auto overflow-x-hidden">
+          <div className="flex flex-col gap-2 w-full items-center">
             {navigationData.map((section) => {
               const Icon = section.icon
-              const isSectionActive = section.id === activePrimary
-              const firstSubItemPath = section.subGroups[0]?.items[0]?.path || "/inventory/summary"
+              const isSectionActive = section.id === activePrimarySectionId
 
               return (
                 <div key={section.id} className="relative group flex items-center justify-center">
-                  <Link
-                    to={firstSubItemPath}
-                    onClick={() => handlePrimaryClick(section.id, firstSubItemPath)}
+                  <button
+                    type="button"
+                    onClick={() => handlePrimaryClick(section.id)}
                     className={cn(
-                      "sidebar-theme-nav flex size-10 items-center justify-center rounded-xl transition-all duration-200",
+                      "sidebar-theme-nav flex size-11 items-center justify-center rounded-xl transition-all duration-150 cursor-pointer",
                       isSectionActive
-                        ? "bg-primary-soft text-primary dark:bg-primary-soft dark:text-primary-active font-bold shadow-xs ring-1 ring-primary/20"
-                        : "text-muted-foreground hover:text-primary hover:bg-primary-soft/60"
+                        ? "bg-primary text-primary-foreground font-bold shadow-md shadow-primary/25 ring-1 ring-primary/20"
+                        : "text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95"
                     )}
                     data-active={isSectionActive}
                     aria-label={section.title}
                   >
                     <Icon className="size-5" />
-                  </Link>
+                  </button>
 
                   {/* Tooltip Hover saat menu ditutup */}
-                  <div className="absolute left-[68px] z-50 hidden rounded-md bg-popover px-2.5 py-1 text-xs font-semibold text-popover-foreground shadow-md ring-1 ring-border group-hover:block whitespace-nowrap">
+                  <div className="absolute left-[70px] z-50 hidden rounded-lg bg-popover px-3 py-1.5 text-xs font-semibold text-popover-foreground shadow-lg border border-border group-hover:block whitespace-nowrap">
                     {section.title}
                   </div>
                 </div>
@@ -136,77 +154,102 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </Sidebar>
 
       {/* 
-        COLUMN 2: Secondary / SubGroup Menu (Lebar ~246px)
+        COLUMN 2: Secondary / SubGroup Menu (~246px)
       */}
       {isMobile ? (
-        /* Mobile: Render Column 2 di samping Column 1 */
+        /* Mobile: Render Column 2 di mobile drawer */
         <Sidebar
           collapsible="none"
           className="flex-1 w-auto border-none bg-background flex flex-col"
         >
           <SidebarHeader className="flex h-16 flex-row items-center justify-between border-b px-4">
-            <h2 className="text-sm font-bold tracking-tight text-foreground truncate">
+            <h2 className="text-base font-bold tracking-tight text-foreground truncate">
               {currentSection.title}
             </h2>
             <Button
               variant="ghost"
-              size="icon-xs"
-              className="size-7 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted"
+              size="icon-sm"
+              className="size-8.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 cursor-pointer"
               onClick={() => setOpenMobile(false)}
               aria-label="Tutup Menu"
             >
-              <X className="size-4" />
+              <X className="size-4.5" />
             </Button>
           </SidebarHeader>
 
-          <SidebarContent className="px-3 py-2 overflow-y-auto">
+          <SidebarContent className="px-3 py-3 overflow-y-auto">
             <div className="space-y-4">
               {currentSection.subGroups.map((subGroup) => {
                 const SubIcon = subGroup.icon || currentSection.icon
                 const isOpen = openCategories[subGroup.title] !== false
+                const isSubGroupActive = subGroup.items.some(
+                  (item) => item.path === activeNavMatch.itemPath
+                )
 
                 return (
-                  <div key={subGroup.title} className="space-y-1">
+                  <div key={subGroup.title} className="space-y-1.5">
                     <button
                       type="button"
                       onClick={() => toggleCategory(subGroup.title)}
-                      className="flex w-full items-start justify-between rounded-lg px-2.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-primary hover:bg-primary-soft/40 transition-colors cursor-pointer text-left"
+                      className={cn(
+                        "group/cat flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer text-left",
+                        isSubGroupActive
+                          ? "text-primary dark:text-primary font-bold hover:bg-primary/10"
+                          : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                      )}
                     >
-                      <div className="flex items-start gap-2 text-left min-w-0 flex-1 pr-1.5">
-                        <SubIcon className="size-3.5 text-muted-foreground shrink-0 mt-0.5" />
+                      <div className="flex items-center gap-2 text-left min-w-0 flex-1 pr-1.5">
+                        <SubIcon
+                          className={cn(
+                            "size-4 shrink-0 transition-colors",
+                            isSubGroupActive
+                              ? "text-primary dark:text-primary"
+                              : "text-muted-foreground group-hover/cat:text-primary"
+                          )}
+                        />
                         <span className="text-left leading-snug break-words">{subGroup.title}</span>
                       </div>
                       <ChevronDown
                         className={cn(
-                          "size-3.5 text-muted-foreground/70 transition-transform duration-200 shrink-0 mt-0.5",
+                          "size-3.5 transition-transform duration-200 shrink-0",
+                          isSubGroupActive ? "text-primary" : "text-muted-foreground/70 group-hover/cat:text-primary",
                           isOpen && "rotate-180"
                         )}
                       />
                     </button>
 
                     {isOpen && (
-                      <div className="space-y-0.5 pt-0.5 ml-5">
+                      <div className="space-y-1 pt-0.5 ml-5 pl-2.5 border-l border-sidebar-border">
                         {subGroup.items.map((item) => {
-                          const isActive = location.pathname === item.path
+                          const isActive = item.path === activeNavMatch.itemPath
 
                           return (
                             <Link
-                              key={item.path}
+                              key={item.label}
                               to={item.path}
                               onClick={() => setOpenMobile(false)}
                               className={cn(
-                                "group flex items-center justify-between rounded-xl px-3 py-2 text-sm transition-all",
+                                "group flex min-h-10 items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-150",
                                 isActive
-                                  ? "bg-primary-soft text-primary dark:bg-primary-soft dark:text-primary-active font-semibold shadow-2xs ring-1 ring-primary/20"
-                                  : "text-muted-foreground hover:text-primary hover:bg-primary-soft/50"
+                                  ? "bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/25"
+                                  : "text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/15 active:scale-[0.99]"
                               )}
                             >
                               <span className="truncate">{item.label}</span>
-                              {item.badge && (
-                                <span className="ml-2 inline-flex items-center justify-center rounded-full bg-danger-soft text-danger font-bold px-2 py-0.5 text-xs shrink-0">
+                              {item.badge ? (
+                                <span
+                                  className={cn(
+                                    "ml-2 inline-flex items-center justify-center rounded-full font-bold px-2 py-0.5 text-xs shrink-0",
+                                    isActive
+                                      ? "bg-primary-foreground/20 text-primary-foreground"
+                                      : "bg-primary/10 text-primary"
+                                  )}
+                                >
                                   {item.badge}
                                 </span>
-                              )}
+                              ) : isActive ? (
+                                <ChevronRight className="size-4 text-primary-foreground/90 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                              ) : null}
                             </Link>
                           )
                         })}
@@ -233,8 +276,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </h2>
                   <Button
                     variant="ghost"
-                    size="icon-xs"
-                    className="size-7 shrink-0 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary-soft/50 cursor-pointer"
+                    size="icon-sm"
+                    className="size-8.5 shrink-0 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 cursor-pointer"
                     onClick={() => setOpen(false)}
                     aria-label="Collapse Menu"
                     title="Tutup Menu"
@@ -244,55 +287,78 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 </div>
               </SidebarHeader>
 
-              <SidebarContent className="px-3 py-2 overflow-y-auto">
-                <div className="space-y-3">
+              <SidebarContent className="px-3 py-3 overflow-y-auto">
+                <div className="space-y-4">
                   {currentSection.subGroups.map((subGroup) => {
                     const SubIcon = subGroup.icon || currentSection.icon
                     const isOpen = openCategories[subGroup.title] !== false
+                    const isSubGroupActive = subGroup.items.some(
+                      (item) => item.path === activeNavMatch.itemPath
+                    )
 
                     return (
-                      <div key={subGroup.title} className="space-y-1">
-                        {/* SubGroup Header with Toggle */}
+                      <div key={subGroup.title} className="space-y-1.5">
                         <button
                           type="button"
                           onClick={() => toggleCategory(subGroup.title)}
-                          className="flex w-full items-start justify-between rounded-lg px-2.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground hover:text-primary hover:bg-primary-soft/40 transition-colors cursor-pointer text-left"
+                          className={cn(
+                            "group/cat flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer text-left",
+                            isSubGroupActive
+                              ? "text-primary dark:text-primary font-bold hover:bg-primary/10"
+                              : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                          )}
                         >
-                          <div className="flex items-start gap-2 text-left min-w-0 flex-1 pr-1.5">
-                            <SubIcon className="size-3.5 text-muted-foreground shrink-0 mt-0.5" />
+                          <div className="flex items-center gap-2 text-left min-w-0 flex-1 pr-1.5">
+                            <SubIcon
+                              className={cn(
+                                "size-4 shrink-0 transition-colors",
+                                isSubGroupActive
+                                  ? "text-primary dark:text-primary"
+                                  : "text-muted-foreground group-hover/cat:text-primary"
+                              )}
+                            />
                             <span className="text-left leading-snug break-words">{subGroup.title}</span>
                           </div>
                           <ChevronDown
                             className={cn(
-                              "size-3.5 text-muted-foreground/70 transition-transform duration-200 shrink-0 mt-0.5",
+                              "size-3.5 transition-transform duration-200 shrink-0",
+                              isSubGroupActive ? "text-primary" : "text-muted-foreground/70 group-hover/cat:text-primary",
                               isOpen && "rotate-180"
                             )}
                           />
                         </button>
 
-                        {/* SubGroup Items */}
                         {isOpen && (
-                          <div className="space-y-0.5 pt-0.5 ml-5">
+                          <div className="space-y-1 pt-0.5 ml-5 pl-2.5 border-l border-sidebar-border">
                             {subGroup.items.map((item) => {
-                              const isActive = location.pathname === item.path
+                              const isActive = item.path === activeNavMatch.itemPath
 
                               return (
                                 <Link
-                                  key={item.path}
+                                  key={item.label}
                                   to={item.path}
                                   className={cn(
-                                    "group flex items-center justify-between rounded-xl px-3 py-2 text-sm transition-all",
+                                    "group flex min-h-10 items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-medium transition-all duration-150",
                                     isActive
-                                      ? "bg-primary-soft text-primary dark:bg-primary-soft dark:text-primary-active font-semibold shadow-2xs ring-1 ring-primary/20"
-                                      : "text-muted-foreground hover:text-primary hover:bg-primary-soft/50"
+                                      ? "bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/25"
+                                      : "text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/15 active:scale-[0.99]"
                                   )}
                                 >
                                   <span className="truncate">{item.label}</span>
-                                  {item.badge && (
-                                    <span className="ml-2 inline-flex items-center justify-center rounded-full bg-danger-soft text-danger font-bold px-2 py-0.5 text-xs shrink-0">
+                                  {item.badge ? (
+                                    <span
+                                      className={cn(
+                                        "ml-2 inline-flex items-center justify-center rounded-full font-bold px-2 py-0.5 text-xs shrink-0",
+                                        isActive
+                                          ? "bg-primary-foreground/20 text-primary-foreground"
+                                          : "bg-primary/10 text-primary"
+                                      )}
+                                    >
                                       {item.badge}
                                     </span>
-                                  )}
+                                  ) : isActive ? (
+                                    <ChevronRight className="size-4 text-primary-foreground/90 shrink-0 transition-transform group-hover:translate-x-0.5" />
+                                  ) : null}
                                 </Link>
                               )
                             })}
