@@ -7,8 +7,12 @@ export const THEME_VARIANTS = [
 
 export type ThemeVariant = (typeof THEME_VARIANTS)[number]["value"]
 
+export type SidebarLayout = "single" | "dual"
+
 export const THEME_CONFIG = {
   defaultVariant: "blue" as ThemeVariant,
   defaultThemedSidebar: false,
+  defaultSidebarLayout: "single" as SidebarLayout,
   storageKey: "kelolastok-theme-preferences",
 }
+

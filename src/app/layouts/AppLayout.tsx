@@ -1,23 +1,27 @@
 import * as React from "react"
 import { Outlet, useNavigate } from "react-router-dom"
-import { AppSidebar } from "@/shared/components/navigation/app-sidebar"
+import { AppSidebar, AppSidebarSingle } from "@/shared/components/navigation"
 import { DashboardHeader } from "@/shared/components/navigation/dashboard-header"
 import { SidebarInset, SidebarProvider } from "@/shared/components/ui/sidebar"
 import { ROUTES } from "@/shared/constants/routes"
+import { useTheme } from "@/shared/hooks/use-theme"
+import { appConfig } from "@/app/config/app.config"
 
 export function AppLayout() {
   const navigate = useNavigate()
+  const { sidebarLayout } = useTheme()
+  const isSingle = sidebarLayout === "single"
 
   return (
     <SidebarProvider
       style={
         {
-          "--sidebar-width": "308px",
-          "--sidebar-width-icon": "61px",
+          "--sidebar-width": isSingle ? appConfig.defaultSidebarWidth : appConfig.dualSidebarWidth,
+          "--sidebar-width-icon": isSingle ? appConfig.defaultSidebarWidthIcon : appConfig.dualSidebarWidthIcon,
         } as React.CSSProperties
       }
     >
-      <AppSidebar />
+      {isSingle ? <AppSidebarSingle /> : <AppSidebar />}
       <SidebarInset className="flex flex-col min-h-screen bg-muted/10">
         <DashboardHeader
           onSignOut={() => navigate(ROUTES.LOGIN)}

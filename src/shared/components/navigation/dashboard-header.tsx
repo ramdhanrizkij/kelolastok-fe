@@ -152,9 +152,9 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
   return (
     <>
       <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-sidebar-border/60 bg-background px-4 md:px-6">
-        {/* Sisi Kiri: Sidebar Trigger (mobile) & Search Icon */}
+        {/* Sisi Kiri: Sidebar Trigger & Search Icon */}
         <div className="flex items-center gap-3">
-          <SidebarTrigger className="md:hidden cursor-pointer" />
+          <SidebarTrigger className="cursor-pointer" />
           <button
             type="button"
             aria-label="Search"

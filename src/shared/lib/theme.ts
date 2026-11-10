@@ -1,5 +1,5 @@
 import * as React from "react"
-import type { ThemeVariant } from "@/shared/config/theme.config"
+import type { ThemeVariant, SidebarLayout } from "@/shared/config/theme.config"
 
 export type Theme = "light" | "dark"
 
@@ -8,9 +8,11 @@ export interface ThemeContextType {
   isDark: boolean
   variant: ThemeVariant
   themedSidebar: boolean
+  sidebarLayout: SidebarLayout
   setTheme: (theme: Theme) => void
   setVariant: (variant: ThemeVariant) => void
   setThemedSidebar: (enabled: boolean) => void
+  setSidebarLayout: (layout: SidebarLayout) => void
   toggleTheme: () => void
 }
 

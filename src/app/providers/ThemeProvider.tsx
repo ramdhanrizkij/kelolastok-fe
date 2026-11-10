@@ -9,6 +9,7 @@ import {
   THEME_CONFIG,
   THEME_VARIANTS,
   type ThemeVariant,
+  type SidebarLayout,
 } from "@/shared/config/theme.config"
 
 interface ThemeProviderProps {
@@ -23,13 +24,16 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     const fallback = {
       variant: THEME_CONFIG.defaultVariant,
       themedSidebar: THEME_CONFIG.defaultThemedSidebar,
+      sidebarLayout: THEME_CONFIG.defaultSidebarLayout,
     }
     try {
       const saved = JSON.parse(localStorage.getItem(THEME_CONFIG.storageKey) || "null") as Partial<typeof fallback> | null
       const validVariant = THEME_VARIANTS.some((item) => item.value === saved?.variant)
+      const validLayout = saved?.sidebarLayout === "single" || saved?.sidebarLayout === "dual"
       return {
-        variant: validVariant ? saved!.variant as ThemeVariant : fallback.variant,
+        variant: validVariant ? (saved!.variant as ThemeVariant) : fallback.variant,
         themedSidebar: typeof saved?.themedSidebar === "boolean" ? saved.themedSidebar : fallback.themedSidebar,
+        sidebarLayout: validLayout ? (saved!.sidebarLayout as SidebarLayout) : fallback.sidebarLayout,
       }
     } catch {
       return fallback
@@ -51,6 +55,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
     const root = document.documentElement
     root.dataset.themeVariant = preferences.variant
     root.dataset.themedSidebar = String(preferences.themedSidebar)
+    root.dataset.sidebarLayout = preferences.sidebarLayout
     localStorage.setItem(THEME_CONFIG.storageKey, JSON.stringify(preferences))
   }, [preferences])
 
@@ -68,9 +73,11 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       isDark: theme === "dark",
       variant: preferences.variant,
       themedSidebar: preferences.themedSidebar,
+      sidebarLayout: preferences.sidebarLayout,
       setTheme,
       setVariant: (variant: ThemeVariant) => setPreferences((current) => ({ ...current, variant })),
       setThemedSidebar: (themedSidebar: boolean) => setPreferences((current) => ({ ...current, themedSidebar })),
+      setSidebarLayout: (sidebarLayout: SidebarLayout) => setPreferences((current) => ({ ...current, sidebarLayout })),
       toggleTheme,
     }),
     [theme, preferences, setTheme, toggleTheme]

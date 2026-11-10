@@ -317,3 +317,45 @@
   color: #FFFFFF;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
 }
+
+:root[data-themed-sidebar="true"] .sidebar-theme-single {
+  --sidebar: var(--primary);
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #FFFFFF;
+  --sidebar-primary-foreground: var(--primary);
+  --sidebar-accent: rgba(255, 255, 255, 0.16);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgba(255, 255, 255, 0.18);
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+:root[data-themed-sidebar="true"] .sidebar-theme-single [data-slot="sidebar-inner"] {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+:root[data-themed-sidebar="true"] .sidebar-theme-single .sidebar-single-item {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+:root[data-themed-sidebar="true"] .sidebar-theme-single .sidebar-single-item:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #FFFFFF;
+}
+
+:root[data-themed-sidebar="true"] .sidebar-theme-single .sidebar-single-active {
+  background: rgba(0, 0, 0, 0.22);
+  color: #FFFFFF;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+}
+
+:root[data-themed-sidebar="true"] .sidebar-theme-single .sidebar-single-subitem {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+:root[data-themed-sidebar="true"] .sidebar-theme-single .sidebar-single-subitem:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #FFFFFF;
+}
+
