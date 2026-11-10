@@ -7,10 +7,10 @@ export const appConfig = {
   defaultRoute: ROUTES.DEFAULT,
   loginRoute: ROUTES.LOGIN,
   defaultSidebarLayout: "single" as const,
-  defaultSidebarWidth: "260px",
-  defaultSidebarWidthIcon: "64px",
-  dualSidebarWidth: "308px",
-  dualSidebarWidthIcon: "61px",
+  defaultSidebarWidth: "268px",
+  defaultSidebarWidthIcon: "72px",
+  dualSidebarWidth: "332px",
+  dualSidebarWidthIcon: "72px",
 }
 
 export default appConfig

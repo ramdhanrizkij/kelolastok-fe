@@ -151,7 +151,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-sidebar-border/60 bg-background px-4 md:px-6">
+      <header className="sticky top-0 z-30 flex h-[68px] shrink-0 items-center justify-between border-b border-sidebar-border/60 bg-background px-5 md:px-7 lg:px-8">
         {/* Sisi Kiri: Sidebar Trigger & Search Icon */}
         <div className="flex items-center gap-3">
           <SidebarTrigger className="md:hidden cursor-pointer size-10 rounded-lg hover:text-primary hover:bg-primary/10" />

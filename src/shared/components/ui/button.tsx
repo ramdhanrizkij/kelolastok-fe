@@ -54,23 +54,23 @@ const buttonVariants = cva(
           "text-primary underline-offset-4 hover:underline p-0 h-auto font-medium active:scale-100",
       },
       size: {
-        // Large (~44px) - Matches 'Large' in Buttons.png
-        lg: "h-11 px-5 py-2.5 text-base font-semibold rounded-xl gap-2.5 [&_svg:not([class*='size-'])]:size-5",
-        // Medium / Standard (~40px) - Matches 'Medium' in Buttons.png
+        // Large (~48px) - Metronic 8 btn-lg
+        lg: "h-12 px-6 py-3 text-base font-semibold rounded-xl gap-2.5 [&_svg:not([class*='size-'])]:size-5",
+        // Medium / Standard (~42px) - Metronic 8 standard btn
         default:
-          "h-10 px-4 py-2 text-sm font-medium rounded-lg gap-2 [&_svg:not([class*='size-'])]:size-4",
-        // Small (~34px) - Matches 'Small' in Buttons.png
-        sm: "h-8.5 px-3 py-1.5 text-xs font-medium rounded-md gap-1.5 [&_svg:not([class*='size-'])]:size-3.5",
-        // Extra Small (~28px)
-        xs: "h-7 px-2.5 py-1 text-xs font-medium rounded-md gap-1 [&_svg:not([class*='size-'])]:size-3",
-        // Icon Large (~44px)
-        "icon-lg": "size-11 rounded-xl [&_svg:not([class*='size-'])]:size-5",
-        // Icon Medium / Default (~40px)
-        icon: "size-10 rounded-lg [&_svg:not([class*='size-'])]:size-4.5",
-        // Icon Small (~34px)
-        "icon-sm": "size-8.5 rounded-md [&_svg:not([class*='size-'])]:size-4",
-        // Icon Extra Small (~28px)
-        "icon-xs": "size-7 rounded-md [&_svg:not([class*='size-'])]:size-3.5",
+          "h-10.5 px-4.5 py-2.5 text-sm font-semibold rounded-lg gap-2 [&_svg:not([class*='size-'])]:size-4.5",
+        // Small (~36px) - Metronic 8 btn-sm
+        sm: "h-9 px-3.5 py-2 text-xs font-semibold rounded-md gap-1.5 [&_svg:not([class*='size-'])]:size-3.5",
+        // Extra Small (~30px) - Metronic 8 btn-xs
+        xs: "h-7.5 px-2.5 py-1 text-xs font-medium rounded-md gap-1 [&_svg:not([class*='size-'])]:size-3",
+        // Icon Large (~48px)
+        "icon-lg": "size-12 rounded-xl [&_svg:not([class*='size-'])]:size-5",
+        // Icon Medium / Default (~42px)
+        icon: "size-10.5 rounded-lg [&_svg:not([class*='size-'])]:size-4.5",
+        // Icon Small (~36px)
+        "icon-sm": "size-9 rounded-md [&_svg:not([class*='size-'])]:size-4",
+        // Icon Extra Small (~30px)
+        "icon-xs": "size-7.5 rounded-md [&_svg:not([class*='size-'])]:size-3.5",
       },
     },
     defaultVariants: {
