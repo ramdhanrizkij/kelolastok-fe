@@ -27,7 +27,7 @@ export function AppLayout() {
         <DashboardHeader
           onSignOut={() => navigate(ROUTES.LOGIN)}
         />
-        <main className="flex-1 p-5 md:p-7 lg:p-8 w-full mx-auto">
+        <main className="flex-1 px-4 sm:px-6 py-6 w-full">
           <Outlet />
         </main>
         <DashboardFooter />

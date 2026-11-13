@@ -151,26 +151,26 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
 
   return (
     <>
-      <header className="sticky top-0 z-30 flex h-[68px] shrink-0 items-center justify-between border-b border-sidebar-border/60 bg-background px-5 md:px-7 lg:px-8">
+      <header className="sticky top-0 z-30 flex h-16 shrink-0 items-center justify-between border-b border-border/80 bg-background px-4 sm:px-6">
         {/* Sisi Kiri: Sidebar Trigger & Search Icon */}
-        <div className="flex items-center gap-3">
-          <SidebarTrigger className="md:hidden cursor-pointer size-10 rounded-lg hover:text-primary hover:bg-primary/10" />
+        <div className="flex items-center gap-2">
+          <SidebarTrigger className="md:hidden cursor-pointer size-9 rounded-md hover:text-primary hover:bg-primary/10" />
           <button
             type="button"
             aria-label="Search"
             onClick={() => setIsSearchOpen(true)}
-            className="flex size-10 items-center justify-center rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95 transition-all cursor-pointer border border-transparent hover:border-primary/20"
+            className="flex size-9 items-center justify-center rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95 transition-all cursor-pointer border border-transparent hover:border-primary/20"
           >
             <Search className="size-5" />
           </button>
         </div>
 
         {/* Sisi Kanan: Notifications Dropdown, Theme Toggle, User Profile */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-2">
           {/* Notifikasi Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger
-              className="relative flex size-10 items-center justify-center rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95 transition-all cursor-pointer outline-none border border-transparent hover:border-primary/20"
+              className="relative flex size-9 items-center justify-center rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95 transition-all cursor-pointer outline-none border border-transparent hover:border-primary/20"
               aria-label="Notifications"
             >
               <Bell className="size-5" />
@@ -283,7 +283,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
             onClick={toggleTheme}
             aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
             title={isDark ? "Switch to light mode" : "Switch to dark mode"}
-            className="flex size-10 items-center justify-center rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95 transition-all cursor-pointer border border-transparent hover:border-primary/20"
+            className="flex size-9 items-center justify-center rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95 transition-all cursor-pointer border border-transparent hover:border-primary/20"
           >
             {isDark ? (
               <Sun className="size-5 text-amber-400 transition-transform duration-200 hover:rotate-45" />
@@ -295,9 +295,9 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
           {/* Profil Pengguna Dropdown */}
           <DropdownMenu>
             <DropdownMenuTrigger
-              className="flex items-center gap-2.5 rounded-xl h-10 px-2 hover:bg-primary/10 active:scale-98 transition-all cursor-pointer outline-none border border-transparent hover:border-primary/20"
+              className="flex items-center gap-2 rounded-md h-9 px-1.5 cursor-pointer outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
-              <Avatar className="size-8.5">
+              <Avatar className="size-8">
                 <AvatarImage
                   src={user?.avatar || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=250&auto=format&fit=crop"}
                   alt={user?.name || "Admin"}
@@ -310,7 +310,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
                 <span className="text-[11px] font-normal text-muted-foreground capitalize">
                   {user?.role || "Admin"}
                 </span>
-                <span className="text-sm font-semibold text-foreground">
+                <span className="text-sm font-medium text-foreground">
                   {user?.name || "Admin KelolaStok"}
                 </span>
               </div>
@@ -319,7 +319,7 @@ export function DashboardHeader({ onSignOut, onNavigate }: DashboardHeaderProps)
             <DropdownMenuContent
               align="end"
               sideOffset={8}
-              className="w-56 p-1 rounded-xl shadow-lg border border-border bg-popover"
+              className="w-56 p-1 rounded-lg shadow-md border border-border bg-popover"
             >
               {/* Header info user di dalam dropdown */}
               <div className="flex items-center gap-3 p-3">

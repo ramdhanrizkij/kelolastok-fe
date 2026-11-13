@@ -49,15 +49,15 @@ export default function ThemeConfigurationPage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl pb-10">
-      <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+      <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">System Configuration</p>
-          <h1 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">Theme Configuration</h1>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+          <p className="mb-1 text-xs font-medium uppercase tracking-wider text-primary">System Configuration</p>
+          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-foreground">Theme Configuration</h1>
+          <p className="mt-1 max-w-2xl text-sm leading-5 text-muted-foreground">
             Atur mode tampilan, warna brand, dan varian tata letak sidebar KelolaStok.
           </p>
         </div>
-        <Button type="button" variant="outline" size="lg" onClick={resetConfig}>
+        <Button type="button" variant="outline" size="default" onClick={resetConfig}>
           <RotateCcw className="size-4" /> Reset default
         </Button>
       </div>
@@ -228,12 +228,12 @@ export default function ThemeConfigurationPage() {
 
 function SettingCard({ icon: Icon, title, description, children }: { icon: React.ComponentType<{ className?: string }>; title: string; description: string; children: React.ReactNode }) {
   return (
-    <section className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-      <header className="flex items-start gap-3 border-b border-border px-5 py-4 sm:px-6">
-        <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-primary"><Icon className="size-4.5" /></div>
-        <div><h2 className="font-bold text-foreground">{title}</h2><p className="mt-1 text-sm text-muted-foreground">{description}</p></div>
+    <section className="overflow-hidden rounded-lg border border-border bg-card shadow-xs">
+      <header className="flex items-start gap-3 border-b border-border/80 px-6 py-4">
+        <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-primary-soft text-primary"><Icon className="size-4.5" /></div>
+        <div><h2 className="font-semibold text-foreground text-base leading-6">{title}</h2><p className="mt-0.5 text-sm text-muted-foreground leading-5">{description}</p></div>
       </header>
-      <div className="p-5 sm:p-6">{children}</div>
+      <div className="p-6">{children}</div>
     </section>
   )
 }

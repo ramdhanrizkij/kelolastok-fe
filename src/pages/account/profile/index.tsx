@@ -40,7 +40,7 @@ const tabs = [
   { id: "security" as const, label: "Keamanan", icon: ShieldCheck },
 ]
 
-const fieldClassName = "h-11 rounded-xl bg-background px-3"
+const fieldClassName = "h-10 rounded-md bg-background px-3 text-sm"
 
 export default function ProfileSettingsPage() {
   const user = useAuthStore((state) => state.user)
@@ -132,16 +132,16 @@ export default function ProfileSettingsPage() {
 
   return (
     <div className="mx-auto w-full max-w-6xl pb-10">
-      <div className="mb-7">
-        <p className="mb-2 text-xs font-semibold uppercase tracking-[0.18em] text-primary">Pengaturan akun</p>
-        <h1 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">Profil & Perusahaan</h1>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
+      <div className="mb-6">
+        <p className="mb-1 text-xs font-medium uppercase tracking-wider text-primary">Pengaturan akun</p>
+        <h1 className="text-2xl font-semibold leading-8 tracking-tight text-foreground">Profil & Perusahaan</h1>
+        <p className="mt-1 max-w-2xl text-sm leading-5 text-muted-foreground">
           Kelola identitas akun, informasi usaha, dan keamanan akses KelolaStok Anda.
         </p>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[240px_minmax(0,1fr)]">
-        <aside className="h-fit rounded-2xl border border-border/70 bg-card p-2 shadow-xs lg:sticky lg:top-24">
+        <aside className="h-fit rounded-lg border border-border bg-card p-2 shadow-xs lg:sticky lg:top-24">
           <nav aria-label="Pengaturan profil" className="flex gap-1 overflow-x-auto lg:flex-col">
             {tabs.map((tab) => {
               const Icon = tab.icon
@@ -151,9 +151,9 @@ export default function ProfileSettingsPage() {
                   type="button"
                   onClick={() => setActiveTab(tab.id)}
                   className={cn(
-                    "flex min-w-max items-center gap-3 rounded-xl px-3.5 py-3 text-sm font-semibold transition-colors lg:w-full",
+                    "flex min-w-max items-center gap-2.5 rounded-md px-3 py-2 text-sm font-medium transition-colors lg:w-full",
                     activeTab === tab.id
-                      ? "bg-primary text-primary-foreground shadow-sm"
+                      ? "bg-primary text-primary-foreground shadow-xs font-semibold"
                       : "text-muted-foreground hover:bg-muted hover:text-foreground"
                   )}
                 >
@@ -163,13 +163,13 @@ export default function ProfileSettingsPage() {
               )
             })}
           </nav>
-          <div className="mt-2 hidden rounded-xl bg-muted/50 p-4 lg:block">
-            <p className="text-xs font-semibold text-foreground">Akun aktif</p>
-            <p className="mt-1 truncate text-xs text-muted-foreground">{user?.email || "-"}</p>
+          <div className="mt-2 hidden rounded-md bg-muted/50 p-3 lg:block">
+            <p className="text-xs font-medium text-foreground">Akun aktif</p>
+            <p className="mt-0.5 truncate text-xs text-muted-foreground">{user?.email || "-"}</p>
           </div>
         </aside>
 
-        <section className="min-w-0 overflow-hidden rounded-2xl border border-border/70 bg-card shadow-sm">
+        <section className="min-w-0 overflow-hidden rounded-lg border border-border bg-card shadow-xs">
           {activeTab === "profile" && (
             <form onSubmit={saveProfile}>
               <SectionHeader icon={UserRound} title="Informasi pribadi" description="Informasi ini digunakan untuk mengenali akun Anda di dalam sistem." />
@@ -222,7 +222,7 @@ export default function ProfileSettingsPage() {
                   <Input required value={company.name} onChange={(event) => setCompany({ ...company, name: event.target.value })} className={fieldClassName} placeholder="Contoh: Toko Berkah Mandiri" />
                 </Field>
                 <Field label="Jenis usaha" icon={Building2}>
-                  <select required value={company.type} onChange={(event) => setCompany({ ...company, type: event.target.value })} className={cn(fieldClassName, "w-full border border-input text-sm outline-none focus:border-ring focus:ring-3 focus:ring-ring/50 dark:bg-input/30")}>
+                  <select required value={company.type} onChange={(event) => setCompany({ ...company, type: event.target.value })} className={cn(fieldClassName, "w-full border border-input text-sm outline-none focus:border-slate-300 dark:focus:border-slate-600 focus:ring-3 focus:ring-primary/20 focus:outline-none dark:bg-input/30")}>
                     <option>Perdagangan / Retail</option>
                     <option>Manufaktur</option>
                     <option>Food & Beverage</option>
@@ -240,7 +240,7 @@ export default function ProfileSettingsPage() {
                   <Input type="email" value={company.email} onChange={(event) => setCompany({ ...company, email: event.target.value })} className={fieldClassName} placeholder="usaha@email.com" />
                 </Field>
                 <Field label="Alamat usaha" icon={MapPin} className="sm:col-span-2">
-                  <textarea required rows={4} value={company.address} onChange={(event) => setCompany({ ...company, address: event.target.value })} className="w-full resize-none rounded-xl border border-input bg-background px-3 py-2.5 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-3 focus:ring-ring/50 dark:bg-input/30" placeholder="Nama jalan, nomor bangunan, kecamatan" />
+                  <textarea required rows={4} value={company.address} onChange={(event) => setCompany({ ...company, address: event.target.value })} className="w-full resize-none rounded-md border border-input bg-background px-3 py-2.5 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-slate-300 dark:focus:border-slate-600 focus:ring-3 focus:ring-primary/20 focus:outline-none dark:bg-input/30" placeholder="Nama jalan, nomor bangunan, kecamatan" />
                 </Field>
                 <Field label="Kota / Kabupaten" icon={MapPin}>
                   <Input required value={company.city} onChange={(event) => setCompany({ ...company, city: event.target.value })} className={fieldClassName} placeholder="Kota / Kabupaten" />

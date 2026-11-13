@@ -1,6 +1,6 @@
 :root {
   /* Centralized Figma Color Styles & Palette - Light Theme */
-  --primary: #1378F0;
+  --primary: #0F6AE8;
   --primary-active: #086DE3;
   --primary-accent: #0D4894;
   --primary-transparent: rgba(19, 120, 240, 0.15);
@@ -79,7 +79,40 @@
   --input: #E2E4ED;
   --ring: #1378F0;
 
-  --radius: 0.625rem;
+  --radius: 0.5rem;
+
+  /* Bytecode Design System - Spacing Scale */
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 28px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* Bytecode Design System - Dimensions */
+  --sidebar-width: 256px;
+  --sidebar-collapsed-width: 72px;
+  --header-height: 64px;
+  --page-padding-desktop: 24px;
+  --page-padding-tablet: 24px;
+  --page-padding-mobile: 16px;
+  --card-padding: 24px;
+
+  /* Bytecode Design System - Control Dimensions */
+  --input-height-sm: 36px;
+  --input-height-md: 40px;
+  --input-height-lg: 48px;
+  --input-padding-x: 12px;
+  --button-height-sm: 32px;
+  --button-height-md: 36px;
+  --button-height-lg: 40px;
+  --button-height-xl: 44px;
 
   /* Charts */
   --chart-1: #1378F0;
@@ -101,7 +134,7 @@
 
 .dark {
   /* Centralized Figma Color Styles & Palette - Dark Theme */
-  --primary: #1378F0;
+  --primary: #0F6AE8;
   --primary-active: #2D8EFF;
   --primary-accent: #1378F0;
   --primary-transparent: rgba(19, 120, 240, 0.2);

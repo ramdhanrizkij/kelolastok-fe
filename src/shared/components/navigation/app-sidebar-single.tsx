@@ -107,21 +107,21 @@ export function AppSidebarSingle({
       {...props}
     >
       {/* Brand Header */}
-      <SidebarHeader className="flex h-[68px] flex-row items-center justify-between border-b border-sidebar-border/60 px-5">
+      <SidebarHeader className="flex h-16 flex-row items-center justify-between border-b border-sidebar-border/60 px-4">
         <Link
           to="/dashboard"
           onClick={handleLinkClick}
           className="flex items-center gap-3 overflow-hidden transition-all group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:w-full"
           title="KelolaStok UMKM"
         >
-          <div className="sidebar-theme-logo flex size-10.5 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/25 hover:scale-105 transition-all">
-            <Boxes className="size-5.5" />
+          <div className="sidebar-theme-logo flex size-9 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-xs shadow-primary/25 hover:scale-105 transition-all">
+            <Boxes className="size-5" />
           </div>
           <div className="flex flex-col text-left leading-tight group-data-[collapsible=icon]:hidden">
-            <span className="text-base font-bold tracking-tight text-foreground truncate">
+            <span className="text-base font-semibold tracking-tight text-foreground truncate">
               KelolaStok
             </span>
-            <span className="text-[11px] text-muted-foreground font-semibold tracking-wide uppercase">
+            <span className="text-[11px] text-muted-foreground font-medium tracking-wide uppercase">
               UMKM Edition
             </span>
           </div>
@@ -131,7 +131,7 @@ export function AppSidebarSingle({
           <Button
             variant="ghost"
             size="icon-xs"
-            className="size-8 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer"
+            className="size-8 rounded-md text-muted-foreground hover:text-foreground hover:bg-muted cursor-pointer"
             onClick={() => setOpenMobile(false)}
             aria-label="Tutup Menu"
           >
@@ -165,7 +165,7 @@ export function AppSidebarSingle({
               return (
                 <React.Fragment key={section.id}>
                   {categoryHeading && (
-                    <div className="px-3 pt-5 pb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/75 group-data-[collapsible=icon]:hidden first:pt-1">
+                    <div className="px-3 pt-5 pb-2 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 group-data-[collapsible=icon]:hidden first:pt-1">
                       {categoryHeading}
                     </div>
                   )}
@@ -178,14 +178,14 @@ export function AppSidebarSingle({
                         navigate(singleItem.path)
                       }}
                       className={cn(
-                        "cursor-pointer rounded-lg min-h-[42px] px-3.5 py-2.5 font-semibold transition-all duration-150 gap-3",
+                        "cursor-pointer rounded-md min-h-10 h-10 px-3 font-medium transition-all duration-150 gap-3",
                         active
-                          ? "sidebar-single-active bg-primary-soft text-primary font-semibold shadow-2xs ring-1 ring-primary/20"
-                          : "sidebar-single-item text-muted-foreground hover:text-foreground hover:bg-muted/70"
+                          ? "sidebar-single-active bg-primary text-primary-foreground font-semibold shadow-xs"
+                          : "sidebar-single-item text-slate-700 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
                       )}
                     >
                       <Icon className="size-5 shrink-0" />
-                      <span className="truncate text-sm font-semibold">{section.title}</span>
+                      <span className="truncate text-sm font-medium">{section.title}</span>
                       {singleItem.badge && (
                         <span className="ml-auto inline-flex items-center justify-center rounded-full bg-danger-soft text-danger font-bold px-2 py-0.5 text-xs">
                           {singleItem.badge}
@@ -208,22 +208,22 @@ export function AppSidebarSingle({
                           tooltip={section.title}
                           isActive={sectionActive}
                           className={cn(
-                            "cursor-pointer rounded-lg min-h-[42px] transition-all duration-150",
+                            "cursor-pointer rounded-md min-h-10 h-10 transition-all duration-150",
                             sectionActive
-                              ? "sidebar-single-active bg-primary-soft text-primary font-semibold shadow-2xs ring-1 ring-primary/20"
-                              : "sidebar-single-item text-muted-foreground hover:text-foreground hover:bg-muted/70"
+                              ? "sidebar-single-active bg-primary text-primary-foreground font-semibold shadow-xs"
+                              : "sidebar-single-item text-slate-700 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
                           )}
                         />
                       }
                     >
                       <Icon className="size-5 shrink-0" />
-                      <span className="truncate text-sm font-semibold">{section.title}</span>
+                      <span className="truncate text-sm font-medium">{section.title}</span>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent
                       side="right"
                       align="start"
                       sideOffset={12}
-                      className="w-60 p-2 rounded-xl shadow-xl border border-border bg-popover"
+                      className="w-60 p-2 rounded-md shadow-xl border border-border bg-popover"
                     >
                       <DropdownMenuLabel className="px-3 py-2 text-xs font-bold text-foreground">
                         {section.title}
@@ -232,7 +232,7 @@ export function AppSidebarSingle({
                       {section.subGroups.map((group) => (
                         <React.Fragment key={group.title}>
                           {section.subGroups.length > 1 && (
-                            <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground/80">
+                            <div className="px-3 py-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400">
                               {group.title}
                             </div>
                           )}
@@ -243,19 +243,13 @@ export function AppSidebarSingle({
                                 key={item.path}
                                 onClick={() => navigate(item.path)}
                                 className={cn(
-                                  "flex items-center justify-between cursor-pointer rounded-lg px-3 py-2 text-sm",
+                                  "flex items-center justify-between cursor-pointer rounded-md px-3 py-2 text-sm",
                                   active
-                                    ? "bg-primary-soft text-primary font-semibold"
-                                    : "text-foreground hover:bg-muted"
+                                    ? "bg-primary text-primary-foreground font-semibold"
+                                    : "text-slate-700 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
                                 )}
                               >
-                                <div className="flex items-center gap-2 min-w-0">
-                                  <span
-                                    className={cn(
-                                      "size-1.5 rounded-full shrink-0",
-                                      active ? "bg-primary" : "bg-muted-foreground/40"
-                                    )}
-                                  />
+                                <div className="flex items-center min-w-0">
                                   <span className="truncate">{item.label}</span>
                                 </div>
                                 {item.badge && (
@@ -278,7 +272,7 @@ export function AppSidebarSingle({
             return (
               <React.Fragment key={section.id}>
                 {categoryHeading && (
-                  <div className="px-3 pt-5 pb-2 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/75 group-data-[collapsible=icon]:hidden first:pt-1">
+                  <div className="px-3 pt-5 pb-2 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 group-data-[collapsible=icon]:hidden first:pt-1">
                     {categoryHeading}
                   </div>
                 )}
@@ -287,20 +281,20 @@ export function AppSidebarSingle({
                   <SidebarMenuButton
                     onClick={() => toggleSection(section.id, isOpen)}
                     className={cn(
-                      "cursor-pointer rounded-lg min-h-[42px] px-3.5 py-2.5 font-semibold transition-all duration-150 justify-between gap-3",
+                      "cursor-pointer rounded-md min-h-10 h-10 px-3 font-medium transition-all duration-150 justify-between gap-3",
                       sectionActive
                         ? "text-foreground font-semibold"
-                        : "sidebar-single-item text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                        : "sidebar-single-item text-slate-700 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
                     )}
                   >
                     <div className="flex items-center gap-3 min-w-0">
                       <Icon
                         className={cn(
                           "size-5 shrink-0 transition-colors",
-                          sectionActive ? "text-primary" : "text-muted-foreground"
+                          sectionActive ? "text-primary" : "text-slate-500"
                         )}
                       />
-                      <span className="truncate text-sm font-semibold">{section.title}</span>
+                      <span className="truncate text-sm font-medium">{section.title}</span>
                     </div>
                     <div className="flex items-center gap-2 shrink-0">
                       {sectionBadge && (
@@ -310,7 +304,7 @@ export function AppSidebarSingle({
                       )}
                       <ChevronDown
                         className={cn(
-                          "size-4 text-muted-foreground/70 transition-transform duration-200",
+                          "size-4 text-slate-500 transition-transform duration-200",
                           isOpen && "rotate-180"
                         )}
                       />
@@ -324,7 +318,7 @@ export function AppSidebarSingle({
                         <div key={subGroup.title} className="space-y-1">
                           {/* Subgroup Label jika section memiliki lebih dari 1 subgroup */}
                           {section.subGroups.length > 1 && (
-                            <div className="px-3 pt-2.5 pb-1 text-[11px] font-bold uppercase tracking-wider text-muted-foreground/70 truncate">
+                            <div className="px-3 pt-2.5 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 truncate">
                               {subGroup.title}
                             </div>
                           )}
@@ -342,21 +336,13 @@ export function AppSidebarSingle({
                                   }
                                   isActive={active}
                                   className={cn(
-                                    "cursor-pointer rounded-lg min-h-[38px] px-3 py-2 text-sm transition-all duration-150 justify-between",
+                                    "cursor-pointer rounded-md min-h-9 h-9 px-3 text-sm transition-all duration-150 justify-between",
                                     active
-                                      ? "sidebar-single-active bg-primary-soft text-primary font-semibold shadow-2xs ring-1 ring-primary/20"
-                                      : "sidebar-single-subitem text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                                      ? "sidebar-single-active bg-primary text-primary-foreground font-semibold shadow-xs"
+                                      : "sidebar-single-subitem text-slate-700 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60"
                                   )}
                                 >
-                                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                                    <span
-                                      className={cn(
-                                        "size-1.5 rounded-full transition-all duration-150 shrink-0",
-                                        active
-                                          ? "bg-primary scale-125 ring-2 ring-primary/25"
-                                          : "bg-muted-foreground/40 group-hover:bg-primary/70"
-                                      )}
-                                    />
+                                  <div className="flex items-center min-w-0 flex-1">
                                     <span className="truncate text-sm font-medium">{item.label}</span>
                                   </div>
                                   {item.badge && (

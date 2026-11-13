@@ -81,21 +81,21 @@ export function NavUser({
             <ChevronsUpDownIcon className="ml-auto size-4 shrink-0 text-muted-foreground group-data-[collapsible=icon]:hidden" />
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-56 rounded-xl border border-border bg-popover shadow-xl"
+            className="w-56 rounded-lg border border-border bg-popover shadow-md"
             side={isMobile ? "bottom" : "right"}
             align="end"
             sideOffset={8}
           >
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2.5 px-2 py-2 text-left text-sm">
-                <Avatar className="h-9 w-9 rounded-lg shrink-0">
+                <Avatar className="h-8 w-8 rounded-md shrink-0">
                   <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg bg-primary text-primary-foreground text-xs font-semibold">
+                  <AvatarFallback className="rounded-md bg-primary text-primary-foreground text-xs font-semibold">
                     {user.name.slice(0, 2).toUpperCase()}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight overflow-hidden">
-                  <span className="truncate font-semibold text-foreground">{user.name}</span>
+                  <span className="truncate font-medium text-foreground">{user.name}</span>
                   <span className="truncate text-xs text-muted-foreground">{user.email}</span>
                 </div>
               </div>
@@ -104,14 +104,14 @@ export function NavUser({
             <DropdownMenuGroup>
               <DropdownMenuItem
                 onClick={() => handleNavigate(ROUTES.ACCOUNT.PROFILE)}
-                className="cursor-pointer gap-2.5 py-2 px-2.5 rounded-lg text-sm"
+                className="cursor-pointer gap-2 py-1.5 px-2.5 rounded-md text-sm"
               >
                 <BadgeCheckIcon className="size-4 text-muted-foreground" />
                 <span>Profil Akun</span>
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => handleNavigate(ROUTES.SETTINGS.THEME)}
-                className="cursor-pointer gap-2.5 py-2 px-2.5 rounded-lg text-sm"
+                className="cursor-pointer gap-2 py-1.5 px-2.5 rounded-md text-sm"
               >
                 <PaletteIcon className="size-4 text-muted-foreground" />
                 <span>Pengaturan Tema</span>
@@ -120,7 +120,7 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={handleLogout}
-              className="cursor-pointer gap-2.5 py-2 px-2.5 rounded-lg text-sm text-destructive focus:text-destructive focus:bg-destructive/10"
+              className="cursor-pointer gap-2 py-1.5 px-2.5 rounded-md text-sm text-destructive focus:text-destructive focus:bg-destructive/10"
             >
               <LogOutIcon className="size-4 text-destructive" />
               <span>Sign Out</span>

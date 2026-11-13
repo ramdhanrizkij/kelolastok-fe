@@ -14,13 +14,13 @@ export function ResetPasswordPage() {
         {/* Brand Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/25">
+            <div className="flex size-9 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-xs shadow-primary/25">
               <Boxes className="size-5" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight text-foreground leading-tight flex items-center gap-1.5">
+              <span className="text-xl font-semibold tracking-tight text-foreground leading-tight flex items-center gap-1.5">
                 KelolaStok
-                <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded-md bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-soft">
+                <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded-[4px] bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-soft">
                   UMKM
                 </span>
               </span>
@@ -32,7 +32,7 @@ export function ResetPasswordPage() {
 
           <Link
             to="/login"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="size-3.5" />
             Kembali
@@ -40,20 +40,20 @@ export function ResetPasswordPage() {
         </div>
 
         {/* Card Form Container */}
-        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm">
+        <div className="rounded-lg border border-border bg-card p-6 sm:p-8 shadow-xs">
           <div className="mb-6">
             <div className="flex items-center gap-2 mb-2">
-              <div className="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <KeyRound className="size-4" />
+              <div className="flex size-7 items-center justify-center rounded-[4px] bg-primary/10 text-primary">
+                <KeyRound className="size-3.5" />
               </div>
-              <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+              <span className="text-xs font-medium text-primary uppercase tracking-wider">
                 Pemulihan Akun
               </span>
             </div>
-            <h1 className="text-2xl font-bold tracking-tight text-card-foreground">
+            <h1 className="text-2xl font-semibold leading-8 tracking-tight text-card-foreground">
               Ubah Kata Sandi
             </h1>
-            <p className="text-sm text-muted-foreground mt-1.5 leading-relaxed">
+            <p className="text-sm text-muted-foreground leading-5 mt-1">
               Buat kata sandi baru untuk akun Anda. Pastikan kata sandi baru memenuhi ketentuan keamanan.
             </p>
           </div>

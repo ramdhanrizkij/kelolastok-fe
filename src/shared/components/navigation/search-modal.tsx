@@ -380,7 +380,7 @@ export function SearchModal({ open, onOpenChange, onSelect }: SearchModalProps) 
         className={cn(
           "top-[15%] sm:top-[20%] -translate-y-0",
           "w-full max-w-[calc(100%-2rem)] sm:max-w-xl md:max-w-xl",
-          "gap-0 p-0 overflow-hidden rounded-2xl border border-border/70 bg-popover shadow-2xl"
+          "gap-0 p-0 overflow-hidden rounded-xl border border-border bg-popover shadow-lg"
         )}
       >
         <DialogTitle className="sr-only">Search</DialogTitle>

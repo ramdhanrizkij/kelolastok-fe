@@ -135,18 +135,18 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
 
           {/* Error Alert */}
           {loginMutation.error && (
-            <div className="mb-4 rounded-xl border border-red-500/20 bg-red-500/10 p-3 text-xs text-red-600 dark:text-red-400">
+            <div className="mb-4 rounded-md border border-red-500/20 bg-red-500/10 p-3 text-xs text-red-600 dark:text-red-400">
               {loginMutation.error.message}
             </div>
           )}
 
-          {/* Form Input */}
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+          {/* Form Input - Field to field gap 20px (Bytecode: space-5) */}
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Field Email */}
-            <div className="space-y-1.5">
+            <div>
               <label
                 htmlFor="email"
-                className="block text-xs font-semibold text-foreground uppercase tracking-wider"
+                className="block text-sm font-medium text-foreground mb-2"
               >
                 Email
               </label>
@@ -157,20 +157,20 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your Email"
-                  className="w-full h-11 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  placeholder="name@example.com"
+                  className="w-full h-10 rounded-md border border-input bg-background px-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-slate-300 dark:focus:border-slate-600 focus:ring-3 focus:ring-primary/20 focus:outline-none"
                 />
-                <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground/70">
-                  <Mail className="size-4.5" />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground/70">
+                  <Mail className="size-4" />
                 </div>
               </div>
             </div>
 
             {/* Field Password */}
-            <div className="space-y-1.5">
+            <div>
               <label
                 htmlFor="password"
-                className="block text-xs font-semibold text-foreground uppercase tracking-wider"
+                className="block text-sm font-medium text-foreground mb-2"
               >
                 Password
               </label>
@@ -181,53 +181,53 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Password"
-                  className="w-full h-11 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  placeholder="Masukkan password"
+                  className="w-full h-10 rounded-md border border-input bg-background px-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-slate-300 dark:focus:border-slate-600 focus:ring-3 focus:ring-primary/20 focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
                 >
                   {showPassword ? (
-                    <EyeOff className="size-4.5" />
+                    <EyeOff className="size-4" />
                   ) : (
-                    <Eye className="size-4.5" />
+                    <Eye className="size-4" />
                   )}
                 </button>
               </div>
             </div>
 
             {/* Remember me & Forgot Password */}
-            <div className="flex items-center justify-between pt-1">
+            <div className="flex items-center justify-between pt-0.5">
               <label className="flex items-center gap-2 cursor-pointer text-xs text-muted-foreground select-none">
                 <input
                   type="checkbox"
                   checked={rememberMe}
                   onChange={(e) => setRememberMe(e.target.checked)}
-                  className="size-3.5 rounded border-input text-primary focus:ring-primary/30 accent-primary cursor-pointer"
+                  className="size-4 rounded-xs border-input text-primary focus:ring-primary/30 accent-primary cursor-pointer"
                 />
-                <span>Remember me</span>
+                <span>Ingat saya</span>
               </label>
               <Link
                 to="/forgot-password"
-                className="text-xs font-semibold text-rose-500 hover:text-rose-600 transition-colors"
+                className="text-xs font-medium text-primary hover:underline transition-colors"
               >
-                Forgot password?
+                Lupa password?
               </Link>
             </div>
 
-            {/* Tombol LOGIN Utama */}
+            {/* Tombol Masuk Utama (Bytecode: Large button 40px) */}
             <button
               type="submit"
               disabled={loginMutation.isPending}
-              className="w-full h-11 rounded-xl bg-primary hover:bg-primary-active text-primary-foreground font-bold text-sm tracking-wider uppercase transition-all shadow-md shadow-primary/25 active:scale-[0.99] disabled:opacity-70 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full h-10 px-5 rounded-md bg-primary hover:bg-primary-active text-primary-foreground font-semibold text-sm transition-colors shadow-xs shadow-primary/25 active:scale-[0.99] disabled:opacity-70 cursor-pointer flex items-center justify-center gap-2"
             >
               {loginMutation.isPending ? (
                 <span className="inline-block size-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
               ) : (
-                <span>LOGIN</span>
+                <span>Masuk ke Akun</span>
               )}
             </button>
 
@@ -238,9 +238,9 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                 if (onLoginSuccess) onLoginSuccess()
                 else navigate("/dashboard")
               }}
-              className="w-full h-11 rounded-xl border border-border bg-background hover:bg-muted/60 text-foreground font-medium text-sm transition-colors flex items-center justify-center gap-3 cursor-pointer shadow-2xs"
+              className="w-full h-10 px-5 rounded-md border border-border bg-background hover:bg-muted text-foreground font-medium text-sm transition-colors flex items-center justify-center gap-2.5 cursor-pointer shadow-xs"
             >
-              <svg className="size-4.5" viewBox="0 0 24 24">
+              <svg className="size-4" viewBox="0 0 24 24">
                 <path
                   fill="#4285F4"
                   d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.8-2.4 3.66v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.15z"
@@ -258,7 +258,7 @@ export function LoginPage({ onLoginSuccess }: LoginPageProps) {
                   d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.37 0 3.29 2.64 1.26 6.58l4.02 3.15c.95-2.83 3.6-4.98 6.72-4.98z"
                 />
               </svg>
-              <span>Sign in with Google</span>
+              <span>Masuk dengan Google</span>
             </button>
           </form>
 

@@ -19,44 +19,44 @@ export default function Forbidden({
         <ShieldAlert className="w-12 h-12" />
       </div>
 
-      <h1 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
+      <h1 className="text-2xl font-semibold leading-8 tracking-tight text-foreground">
         403 - Akses Ditolak
       </h1>
 
-      <p className="mt-2 text-sm text-muted-foreground max-w-md">
+      <p className="mt-1 text-sm text-muted-foreground leading-5 max-w-md">
         Anda tidak memiliki izin (permission) yang cukup untuk mengakses halaman ini. Hubungi administrator sistem jika Anda membutuhkan akses ini.
       </p>
 
       {(requiredPermissions.length > 0 || requiredRoles.length > 0) && (
-        <div className="mt-4 p-3 bg-muted/50 rounded-lg text-xs font-mono text-left max-w-md w-full border border-border">
+        <div className="mt-4 p-3 bg-muted/50 rounded-md text-xs font-mono text-left max-w-md w-full border border-border">
           {requiredPermissions.length > 0 && (
             <div className="mb-1">
-              <span className="font-semibold text-foreground">Required Permissions:</span>{" "}
+              <span className="font-medium text-foreground">Required Permissions:</span>{" "}
               <span className="text-primary">{requiredPermissions.join(", ")}</span>
             </div>
           )}
           {requiredRoles.length > 0 && (
             <div>
-              <span className="font-semibold text-foreground">Required Roles:</span>{" "}
+              <span className="font-medium text-foreground">Required Roles:</span>{" "}
               <span className="text-primary">{requiredRoles.join(", ")}</span>
             </div>
           )}
         </div>
       )}
 
-      <div className="mt-6 flex gap-3">
+      <div className="mt-6 flex items-center justify-center gap-2">
         <button
           type="button"
           onClick={() => navigate(-1)}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium border border-border rounded-md hover:bg-accent transition-colors cursor-pointer"
+          className="inline-flex items-center gap-2 h-9 px-4 text-sm font-medium border border-border rounded-md hover:bg-muted transition-colors cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4" /> Kembali
+          <ArrowLeft className="size-4" /> Kembali
         </button>
 
         <button
           type="button"
           onClick={() => navigate(ROUTES.DEFAULT)}
-          className="inline-flex items-center px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors shadow-sm cursor-pointer"
+          className="inline-flex items-center h-9 px-4 text-sm font-semibold bg-primary text-primary-foreground rounded-md hover:bg-primary-active transition-colors shadow-xs cursor-pointer"
         >
           Ke Dashboard
         </button>

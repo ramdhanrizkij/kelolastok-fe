@@ -8,3 +8,49 @@
 @import "./variables.css";
 @import "./theme.css";
 @import "./typography.css";
+
+/* Bytecode Design System Responsive Layout Helpers */
+.page-container {
+  padding: var(--page-padding-desktop, 32px);
+}
+
+@media (max-width: 1023px) {
+  .page-container {
+    padding: var(--page-padding-tablet, 24px);
+  }
+}
+
+@media (max-width: 639px) {
+  .page-container {
+    padding: var(--page-padding-mobile, 16px);
+  }
+}
+
+/* Bytecode Design System Accessibility: Visible Focus for interactive controls */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Form inputs manage their own clean, integrated focus state without offset outline */
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: none !important;
+  outline-offset: 0 !important;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

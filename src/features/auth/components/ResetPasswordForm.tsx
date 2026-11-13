@@ -172,15 +172,15 @@ export function ResetPasswordForm({
       )}
 
       {/* Input Kata Sandi Baru */}
-      <div className="space-y-1.5">
+      <div>
         <label
           htmlFor="new-password"
-          className="block text-xs font-semibold text-foreground uppercase tracking-wider"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           Kata Sandi Baru
         </label>
         <div className="relative">
-          <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4.5 text-muted-foreground/60 pointer-events-none" />
+          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/60 pointer-events-none" />
           <input
             id="new-password"
             type={showPassword ? "text" : "password"}
@@ -189,14 +189,14 @@ export function ResetPasswordForm({
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Minimal 8 karakter"
-            className="w-full pl-10 pr-10 py-2.5 rounded-xl border border-input bg-background text-foreground placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-2xs"
+            className="w-full pl-9 pr-9 h-10 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-3 focus:ring-primary/20 focus:border-slate-300 dark:focus:border-slate-600 transition-colors shadow-xs"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
             tabIndex={-1}
             aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
           >
             {showPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
           </button>
@@ -204,10 +204,10 @@ export function ResetPasswordForm({
 
         {/* Strength Indicator */}
         {password.length > 0 && (
-          <div className="space-y-1.5 pt-1">
-            <div className="flex items-center justify-between text-[11px]">
+          <div className="space-y-1.5 pt-1.5">
+            <div className="flex items-center justify-between text-xs">
               <span className="text-muted-foreground">Kekuatan Kata Sandi:</span>
-              <span className={cn("font-semibold", getStrengthLabel().color)}>
+              <span className={cn("font-medium", getStrengthLabel().color)}>
                 {getStrengthLabel().text}
               </span>
             </div>
@@ -216,7 +216,7 @@ export function ResetPasswordForm({
                 <div
                   key={step}
                   className={cn(
-                    "h-1.5 rounded-full transition-all duration-200",
+                    "h-1 rounded-full transition-all duration-200",
                     strengthScore >= step
                       ? strengthScore <= 1
                         ? "bg-rose-500"
@@ -235,15 +235,15 @@ export function ResetPasswordForm({
       </div>
 
       {/* Input Konfirmasi Kata Sandi Baru */}
-      <div className="space-y-1.5">
+      <div>
         <label
           htmlFor="confirm-password"
-          className="block text-xs font-semibold text-foreground uppercase tracking-wider"
+          className="block text-sm font-medium text-foreground mb-2"
         >
           Konfirmasi Kata Sandi Baru
         </label>
         <div className="relative">
-          <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4.5 text-muted-foreground/60 pointer-events-none" />
+          <Lock className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/60 pointer-events-none" />
           <input
             id="confirm-password"
             type={showConfirmPassword ? "text" : "password"}
@@ -253,12 +253,12 @@ export function ResetPasswordForm({
             onChange={(e) => setConfirmPassword(e.target.value)}
             placeholder="Ulangi kata sandi baru"
             className={cn(
-              "w-full pl-10 pr-10 py-2.5 rounded-xl border bg-background text-foreground placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-2 transition-all shadow-2xs",
+              "w-full pl-9 pr-9 h-10 rounded-md border bg-background text-foreground placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-3 transition-colors shadow-xs",
               confirmPassword && isMatch
                 ? "border-emerald-500 focus:ring-emerald-500/20"
                 : confirmPassword && !isMatch
                 ? "border-rose-500 focus:ring-rose-500/20"
-                : "border-input focus:ring-primary/20 focus:border-primary"
+                : "border-input focus:ring-primary/20 focus:border-slate-300 dark:focus:border-slate-600"
             )}
           />
           <button
@@ -266,14 +266,14 @@ export function ResetPasswordForm({
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
             tabIndex={-1}
             aria-label={showConfirmPassword ? "Sembunyikan password" : "Tampilkan password"}
-            className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
           >
             {showConfirmPassword ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
           </button>
         </div>
 
         {confirmPassword && (
-          <div className="flex items-center gap-1.5 text-[11px] pt-0.5">
+          <div className="flex items-center gap-1.5 text-xs pt-1">
             {isMatch ? (
               <span className="text-emerald-600 dark:text-emerald-400 flex items-center gap-1 font-medium">
                 <Check className="size-3.5" /> Kata sandi cocok
@@ -288,8 +288,8 @@ export function ResetPasswordForm({
       </div>
 
       {/* Persyaratan Kata Sandi */}
-      <div className="rounded-xl bg-muted/40 p-3 space-y-1.5 text-[11px] text-muted-foreground">
-        <span className="font-semibold text-foreground block">Ketentuan kata sandi:</span>
+      <div className="rounded-md bg-muted/40 p-3 space-y-1.5 text-xs text-muted-foreground">
+        <span className="font-medium text-foreground block">Ketentuan kata sandi:</span>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-1.5">
           <span className={cn("flex items-center gap-1.5", hasMinLength ? "text-emerald-600 font-medium" : "")}>
             <span className={cn("size-1.5 rounded-full", hasMinLength ? "bg-emerald-500" : "bg-muted-foreground/40")} />
@@ -314,7 +314,7 @@ export function ResetPasswordForm({
       <button
         type="submit"
         disabled={resetPasswordMutation.isPending || !hasMinLength || !isMatch}
-        className="w-full h-11 rounded-xl bg-primary hover:bg-primary-active text-primary-foreground font-semibold text-sm transition-all duration-150 shadow-md shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer active:scale-[0.99]"
+        className="w-full h-10 px-5 rounded-md bg-primary hover:bg-primary-active text-primary-foreground font-semibold text-sm transition-colors shadow-xs shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer active:scale-[0.99]"
       >
         {resetPasswordMutation.isPending ? (
           <>

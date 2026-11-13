@@ -159,15 +159,15 @@ export function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
             </div>
           )}
 
-          {/* Form Input */}
-          <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
+          {/* Form Input - Field to field gap 20px (Bytecode: space-5) */}
+          <form onSubmit={handleSubmit} className="space-y-5">
             {/* Field Name */}
-            <div className="space-y-1.5">
+            <div>
               <label
                 htmlFor="name"
-                className="text-md text-foreground"
+                className="block text-sm font-medium text-foreground mb-2"
               >
-                Full Name
+                Nama Lengkap
               </label>
               <div className="relative">
                 <input
@@ -177,19 +177,19 @@ export function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Budi Santoso"
-                  className="w-full h-10.5 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  className="w-full h-10 rounded-md border border-input bg-background px-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-slate-300 dark:focus:border-slate-600 focus:ring-3 focus:ring-primary/20 focus:outline-none"
                 />
-                <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground/70">
-                  <User className="size-4.5" />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground/70">
+                  <User className="size-4" />
                 </div>
               </div>
             </div>
 
             {/* Field Username */}
-            <div className="space-y-1.5">
+            <div>
               <label
                 htmlFor="username"
-                className="text-md text-foreground"
+                className="block text-sm font-medium text-foreground mb-2"
               >
                 Username
               </label>
@@ -201,19 +201,19 @@ export function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
                   value={username}
                   onChange={(e) => setUsername(e.target.value.toLowerCase().replace(/\s+/g, ""))}
                   placeholder="budisantoso"
-                  className="w-full h-10.5 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  className="w-full h-10 rounded-md border border-input bg-background px-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-slate-300 dark:focus:border-slate-600 focus:ring-3 focus:ring-primary/20 focus:outline-none"
                 />
-                <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground/70">
-                  <AtSign className="size-4.5" />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground/70">
+                  <AtSign className="size-4" />
                 </div>
               </div>
             </div>
 
             {/* Field Email */}
-            <div className="space-y-1.5">
+            <div>
               <label
                 htmlFor="email"
-                className="text-md text-foreground"
+                className="block text-sm font-medium text-foreground mb-2"
               >
                 Email
               </label>
@@ -225,19 +225,19 @@ export function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="budi@tokoberkah.id"
-                  className="w-full h-10.5 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  className="w-full h-10 rounded-md border border-input bg-background px-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-slate-300 dark:focus:border-slate-600 focus:ring-3 focus:ring-primary/20 focus:outline-none"
                 />
-                <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground/70">
-                  <Mail className="size-4.5" />
+                <div className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground/70">
+                  <Mail className="size-4" />
                 </div>
               </div>
             </div>
 
             {/* Field Password */}
-            <div className="space-y-1.5">
+            <div>
               <label
                 htmlFor="password"
-                className="text-md text-foreground"
+                className="block text-sm font-medium text-foreground mb-2"
               >
                 Password
               </label>
@@ -249,30 +249,30 @@ export function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Minimal 8 karakter"
-                  className="w-full h-10.5 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  className="w-full h-10 rounded-md border border-input bg-background px-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-slate-300 dark:focus:border-slate-600 focus:ring-3 focus:ring-primary/20 focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   aria-label={showPassword ? "Sembunyikan password" : "Tampilkan password"}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
                 >
                   {showPassword ? (
-                    <EyeOff className="size-4.5" />
+                    <EyeOff className="size-4" />
                   ) : (
-                    <Eye className="size-4.5" />
+                    <Eye className="size-4" />
                   )}
                 </button>
               </div>
             </div>
 
             {/* Field Confirm Password */}
-            <div className="space-y-1.5">
+            <div>
               <label
                 htmlFor="confirmPassword"
-                className="text-md text-foreground"
+                className="block text-sm font-medium text-foreground mb-2"
               >
-                Confirm Password
+                Konfirmasi Password
               </label>
               <div className="relative">
                 <input
@@ -282,36 +282,36 @@ export function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="Ulangi kata sandi"
-                  className="w-full h-10.5 rounded-xl border border-input bg-background px-3.5 pr-10 text-sm text-foreground placeholder:text-muted-foreground/70 transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 focus:outline-none"
+                  className="w-full h-10 rounded-md border border-input bg-background px-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground/60 transition-colors focus:border-slate-300 dark:focus:border-slate-600 focus:ring-3 focus:ring-primary/20 focus:outline-none"
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                   aria-label={showConfirmPassword ? "Sembunyikan konfirmasi password" : "Tampilkan konfirmasi password"}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 p-0.5 text-muted-foreground/70 hover:text-foreground transition-colors cursor-pointer"
                 >
                   {showConfirmPassword ? (
-                    <EyeOff className="size-4.5" />
+                    <EyeOff className="size-4" />
                   ) : (
-                    <Eye className="size-4.5" />
+                    <Eye className="size-4" />
                   )}
                 </button>
               </div>
               {confirmPassword && password !== confirmPassword && (
-                <p className="text-xs text-rose-500 font-medium pt-0.5">
+                <p className="mt-1 text-xs text-rose-500 font-medium">
                   Kata sandi tidak cocok.
                 </p>
               )}
             </div>
 
             {/* Terms & Conditions Checkbox */}
-            <div className="pt-1">
-              <label className="flex items-start gap-2.5 cursor-pointer text-xs text-muted-foreground select-none leading-relaxed">
+            <div className="pt-0.5">
+              <label className="flex items-start gap-2 cursor-pointer text-xs text-muted-foreground select-none leading-relaxed">
                 <input
                   type="checkbox"
                   checked={agreeTerms}
                   onChange={(e) => setAgreeTerms(e.target.checked)}
-                  className="mt-0.5 size-3.5 rounded border-input text-primary focus:ring-primary/30 accent-primary cursor-pointer"
+                  className="mt-0.5 size-4 rounded-xs border-input text-primary focus:ring-primary/30 accent-primary cursor-pointer"
                 />
                 <span>
                   Saya menyetujui{" "}
@@ -345,12 +345,12 @@ export function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
             <button
               type="submit"
               disabled={registerMutation.isPending}
-              className="w-full h-11 rounded-xl bg-primary hover:bg-primary-active text-primary-foreground font-bold text-sm tracking-wider uppercase transition-all shadow-md shadow-primary/25 active:scale-[0.99] disabled:opacity-70 cursor-pointer flex items-center justify-center gap-2 mt-2"
+              className="w-full h-10 px-5 rounded-md bg-primary hover:bg-primary-active text-primary-foreground font-semibold text-sm transition-colors shadow-xs shadow-primary/25 active:scale-[0.99] disabled:opacity-70 cursor-pointer flex items-center justify-center gap-2 mt-2"
             >
               {registerMutation.isPending ? (
                 <span className="inline-block size-4 border-2 border-primary-foreground/30 border-t-primary-foreground rounded-full animate-spin" />
               ) : (
-                <span>DAFTAR SEKARANG</span>
+                <span>Daftar Akun Baru</span>
               )}
             </button>
 
@@ -361,7 +361,7 @@ export function RegisterPage({ onRegisterSuccess }: RegisterPageProps) {
                 if (onRegisterSuccess) onRegisterSuccess()
                 else navigate("/dashboard")
               }}
-              className="w-full h-10.5 rounded-xl border border-border bg-background hover:bg-muted/60 text-foreground font-medium text-sm transition-colors flex items-center justify-center gap-3 cursor-pointer shadow-2xs"
+              className="w-full h-10 px-5 rounded-md border border-border bg-background hover:bg-muted text-foreground font-medium text-sm transition-colors flex items-center justify-center gap-2.5 cursor-pointer shadow-xs"
             >
               <svg className="size-4.5" viewBox="0 0 24 24">
                 <path

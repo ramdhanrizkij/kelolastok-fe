@@ -436,33 +436,33 @@ export function DashboardPage() {
   return (
     <div className="space-y-6 pb-8">
       {/* 1. Header Banner & Quick Actions */}
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-card border border-border/80 p-5 sm:p-6 rounded-2xl shadow-xs">
+      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 bg-card border border-border p-6 rounded-lg shadow-xs">
         <div>
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-semibold">
+            <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-[4px] bg-primary/10 text-primary text-xs font-medium">
               <Zap className="size-3" /> Live Analytics
             </span>
             <span className="text-xs text-muted-foreground flex items-center gap-1">
               <Calendar className="size-3" /> {new Date().toLocaleDateString("id-ID", { weekday: "long", day: "numeric", month: "long", year: "numeric" })}
             </span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-1.5">
+          <h1 className="text-2xl font-semibold leading-8 tracking-tight text-foreground mt-1">
             Selamat Datang, {user?.name || "Budi Santoso"} 👋
           </h1>
-          <p className="text-sm text-muted-foreground mt-0.5">
+          <p className="text-sm text-muted-foreground leading-5 mt-1 max-w-2xl">
             Berikut ringkasan performa inventori, pergerakan stok, dan status operasional gudang hari ini.
           </p>
         </div>
 
         {/* Filter Periode & Action Buttons */}
-        <div className="flex flex-wrap items-center gap-2.5">
-          <div className="inline-flex p-1 bg-muted/60 rounded-xl border border-border/70 text-xs">
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="inline-flex p-0.5 bg-muted/60 rounded-md border border-border text-xs">
             <button
               type="button"
               onClick={() => setPeriod("7d")}
               className={cn(
-                "px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer",
-                period === "7d" ? "bg-gray-200 text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
+                "h-8 px-3 rounded-sm font-medium transition-colors cursor-pointer",
+                period === "7d" ? "bg-background text-foreground shadow-xs font-semibold" : "text-muted-foreground hover:text-foreground"
               )}
             >
               7 Hari
@@ -471,8 +471,8 @@ export function DashboardPage() {
               type="button"
               onClick={() => setPeriod("this_month")}
               className={cn(
-                "px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer",
-                period === "this_month" ? "bg-gray-200 text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
+                "h-8 px-3 rounded-sm font-medium transition-colors cursor-pointer",
+                period === "this_month" ? "bg-background text-foreground shadow-xs font-semibold" : "text-muted-foreground hover:text-foreground"
               )}
             >
               Bulan Ini
@@ -481,8 +481,8 @@ export function DashboardPage() {
               type="button"
               onClick={() => setPeriod("this_year")}
               className={cn(
-                "px-2.5 py-1.5 rounded-lg font-medium transition-all cursor-pointer",
-                period === "this_year" ? "bg-gray-200 text-foreground font-semibold" : "text-muted-foreground hover:text-foreground"
+                "h-8 px-3 rounded-sm font-medium transition-colors cursor-pointer",
+                period === "this_year" ? "bg-background text-foreground shadow-xs font-semibold" : "text-muted-foreground hover:text-foreground"
               )}
             >
               Tahun Ini
@@ -492,16 +492,16 @@ export function DashboardPage() {
           <div className="flex items-center gap-2">
             <Link
               to={ROUTES.INBOUND.RECEIVING}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-primary hover:bg-primary-active text-primary-foreground text-xs font-semibold shadow-xs transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md bg-primary hover:bg-primary-active text-primary-foreground text-sm font-medium shadow-xs transition-colors cursor-pointer"
             >
-              <Plus className="size-3.5" />
+              <Plus className="size-4" />
               <span>Barang Masuk</span>
             </Link>
             <Link
               to={ROUTES.OUTBOUND.DELIVERIES}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl border border-border bg-background hover:bg-muted text-foreground text-xs font-semibold transition-colors cursor-pointer shadow-2xs"
+              className="inline-flex items-center justify-center gap-2 h-9 px-4 rounded-md border border-border bg-background hover:bg-muted text-foreground text-sm font-medium transition-colors cursor-pointer shadow-xs"
             >
-              <ArrowUpFromLine className="size-3.5" />
+              <ArrowUpFromLine className="size-4" />
               <span>Pengiriman</span>
             </Link>
           </div>
@@ -509,23 +509,23 @@ export function DashboardPage() {
       </div>
 
       {/* 2. Executive KPI Summary Cards (4 Cards) */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {/* Metric 1: Total Nilai Stok */}
-        <div className="rounded-2xl border border-border bg-card p-5 shadow-xs transition-all hover:border-primary/40">
+        <div className="rounded-lg border border-border bg-card p-6 shadow-xs transition-all hover:border-primary/40">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Total Nilai Stok
             </span>
-            <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
+            <div className="size-9 rounded-md bg-primary/10 text-primary flex items-center justify-center">
               <Boxes className="size-5" />
             </div>
           </div>
           <div className="mt-3">
-            <span className="text-2xl font-bold tracking-tight text-foreground block">
+            <span className="text-2xl font-semibold tracking-tight text-foreground leading-8 block">
               {formatIDR(1485250000)}
             </span>
             <div className="flex items-center gap-1.5 mt-2 text-xs">
-              <span className="inline-flex items-center gap-0.5 text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded-md">
+              <span className="inline-flex items-center gap-0.5 text-emerald-700 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded-[4px]">
                 <TrendingUp className="size-3" /> +12.4%
               </span>
               <span className="text-muted-foreground">vs bulan lalu</span>
@@ -534,21 +534,21 @@ export function DashboardPage() {
         </div>
 
         {/* Metric 2: Total SKU Aktif */}
-        <div className="rounded-2xl border border-border bg-card p-5 shadow-xs transition-all hover:border-primary/40">
+        <div className="rounded-lg border border-border bg-card p-6 shadow-xs transition-all hover:border-primary/40">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Total SKU Barang
             </span>
-            <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-600 dark:text-blue-400">
+            <div className="size-9 rounded-md bg-blue-500/10 text-blue-600 dark:text-blue-400 flex items-center justify-center">
               <Package className="size-5" />
             </div>
           </div>
           <div className="mt-3">
-            <span className="text-2xl font-bold tracking-tight text-foreground block">
+            <span className="text-2xl font-semibold tracking-tight text-foreground leading-8 block">
               1.248 <span className="text-sm font-normal text-muted-foreground">SKU</span>
             </span>
             <div className="flex items-center gap-1.5 mt-2 text-xs">
-              <span className="inline-flex items-center gap-0.5 text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded-md">
+              <span className="inline-flex items-center gap-0.5 text-emerald-700 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded-[4px]">
                 <CheckCircle2 className="size-3" /> 98.6%
               </span>
               <span className="text-muted-foreground">tersedia di gudang</span>
@@ -557,21 +557,21 @@ export function DashboardPage() {
         </div>
 
         {/* Metric 3: Peringatan Stok Rendah */}
-        <div className="rounded-2xl border border-border bg-card p-5 shadow-xs transition-all hover:border-rose-500/40">
+        <div className="rounded-lg border border-border bg-card p-6 shadow-xs transition-all hover:border-rose-500/40">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Peringatan Stok
             </span>
-            <div className="p-2.5 rounded-xl bg-rose-500/10 text-rose-600 dark:text-rose-400">
+            <div className="size-9 rounded-md bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
               <AlertTriangle className="size-5" />
             </div>
           </div>
           <div className="mt-3">
-            <span className="text-2xl font-bold tracking-tight text-foreground block">
+            <span className="text-2xl font-semibold tracking-tight text-foreground leading-8 block">
               18 <span className="text-sm font-normal text-muted-foreground">Produk</span>
             </span>
             <div className="flex items-center gap-1.5 mt-2 text-xs">
-              <span className="inline-flex items-center gap-0.5 text-rose-600 dark:text-rose-400 font-semibold bg-rose-500/10 px-1.5 py-0.5 rounded-md">
+              <span className="inline-flex items-center gap-0.5 text-rose-700 dark:text-rose-400 font-medium bg-rose-50 dark:bg-rose-950/40 px-1.5 py-0.5 rounded-[4px]">
                 4 Kritis
               </span>
               <span className="text-muted-foreground">perlu segera restok</span>
@@ -580,21 +580,21 @@ export function DashboardPage() {
         </div>
 
         {/* Metric 4: Perputaran Persediaan (Turnover) */}
-        <div className="rounded-2xl border border-border bg-card p-5 shadow-xs transition-all hover:border-primary/40">
+        <div className="rounded-lg border border-border bg-card p-6 shadow-xs transition-all hover:border-primary/40">
           <div className="flex items-center justify-between">
             <span className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
               Perputaran Stok
             </span>
-            <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+            <div className="size-9 rounded-md bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
               <RefreshCw className="size-5" />
             </div>
           </div>
           <div className="mt-3">
-            <span className="text-2xl font-bold tracking-tight text-foreground block">
+            <span className="text-2xl font-semibold tracking-tight text-foreground leading-8 block">
               5.2x <span className="text-sm font-normal text-muted-foreground">/ Tahun</span>
             </span>
             <div className="flex items-center gap-1.5 mt-2 text-xs">
-              <span className="inline-flex items-center gap-0.5 text-emerald-600 dark:text-emerald-400 font-semibold bg-emerald-500/10 px-1.5 py-0.5 rounded-md">
+              <span className="inline-flex items-center gap-0.5 text-emerald-700 dark:text-emerald-400 font-medium bg-emerald-50 dark:bg-emerald-950/40 px-1.5 py-0.5 rounded-[4px]">
                 <Sparkles className="size-3" /> Optimal
               </span>
               <span className="text-muted-foreground">siklus ~28 hari</span>
@@ -606,24 +606,24 @@ export function DashboardPage() {
       {/* 3. Main Analytics Grid (Charts Section) */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Chart: Tren Mutasi Inbound vs Outbound (Span 8 Cols) */}
-        <div className="lg:col-span-8 rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-xs">
+        <div className="lg:col-span-8 rounded-lg border border-border bg-card p-6 shadow-xs">
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
             <div>
-              <h2 className="text-base font-bold text-foreground tracking-tight flex items-center gap-2">
+              <h2 className="text-base font-semibold leading-6 text-foreground tracking-tight flex items-center gap-2">
                 Tren Mutasi Stok Barang Masuk vs Keluar
               </h2>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="text-xs text-muted-foreground leading-4 mt-1">
                 Perbandingan volume penerimaan dari pemasok dan pengiriman ke pelanggan
               </p>
             </div>
             <div className="flex items-center gap-3 text-xs">
               <div className="flex items-center gap-1.5">
                 <span className="size-2.5 rounded-full bg-blue-600" />
-                <span className="text-muted-foreground">Inbound: <strong className="text-foreground">3.420</strong></span>
+                <span className="text-muted-foreground">Inbound: <strong className="text-foreground font-semibold">3.420</strong></span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="size-2.5 rounded-full bg-emerald-500" />
-                <span className="text-muted-foreground">Outbound: <strong className="text-foreground">3.280</strong></span>
+                <span className="text-muted-foreground">Outbound: <strong className="text-foreground font-semibold">3.280</strong></span>
               </div>
             </div>
           </div>
@@ -639,12 +639,12 @@ export function DashboardPage() {
         </div>
 
         {/* Right Chart: Komposisi Nilai per Kategori (Span 4 Cols) */}
-        <div className="lg:col-span-4 rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-4 rounded-lg border border-border bg-card p-6 shadow-xs flex flex-col justify-between">
           <div>
-            <h2 className="text-base font-bold text-foreground tracking-tight">
+            <h2 className="text-base font-semibold leading-6 text-foreground tracking-tight">
               Komposisi Nilai Stok
             </h2>
-            <p className="text-xs text-muted-foreground mt-0.5">
+            <p className="text-xs text-muted-foreground leading-4 mt-1">
               Proporsi valuasi modal persediaan per kategori produk
             </p>
           </div>
@@ -663,20 +663,20 @@ export function DashboardPage() {
       {/* 4. Second Analytics Row: Warehouse Capacity & Health Score */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Warehouse Capacity Utilization (Span 7 Cols) */}
-        <div className="lg:col-span-7 rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-xs">
+        <div className="lg:col-span-7 rounded-lg border border-border bg-card p-6 shadow-xs">
           <div className="flex items-center justify-between mb-4">
             <div>
-              <h2 className="text-base font-bold text-foreground tracking-tight flex items-center gap-2">
-                <Warehouse className="size-4.5 text-primary" />
+              <h2 className="text-base font-semibold leading-6 text-foreground tracking-tight flex items-center gap-2">
+                <Warehouse className="size-5 text-primary" />
                 Utilisasi Kapasitas Gudang
               </h2>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="text-xs text-muted-foreground leading-4 mt-1">
                 Persentase okupansi ruang simpan di setiap titik fasilitas
               </p>
             </div>
             <Link
               to={ROUTES.WAREHOUSES.CAPACITY}
-              className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
+              className="text-xs font-medium text-primary hover:underline inline-flex items-center gap-1"
             >
               Detail Gudang <ChevronRight className="size-3.5" />
             </Link>
@@ -691,14 +691,14 @@ export function DashboardPage() {
         </div>
 
         {/* Inventory Health Score (Span 5 Cols) */}
-        <div className="lg:col-span-5 rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-5 rounded-lg border border-border bg-card p-6 shadow-xs flex flex-col justify-between">
           <div className="flex items-center justify-between mb-2">
             <div>
-              <h2 className="text-base font-bold text-foreground tracking-tight flex items-center gap-2">
-                <ShieldCheck className="size-4.5 text-emerald-600 dark:text-emerald-400" />
+              <h2 className="text-base font-semibold leading-6 text-foreground tracking-tight flex items-center gap-2">
+                <ShieldCheck className="size-5 text-emerald-600 dark:text-emerald-400" />
                 Indeks Kesehatan Inventori
               </h2>
-              <p className="text-xs text-muted-foreground mt-0.5">
+              <p className="text-xs text-muted-foreground leading-4 mt-1">
                 Skor gabungan akurasi, perputaran, dan efisiensi stok
               </p>
             </div>
@@ -713,18 +713,18 @@ export function DashboardPage() {
             />
           </div>
 
-          <div className="grid grid-cols-3 gap-2 pt-2 border-t border-border/60 text-center text-xs">
-            <div className="p-2 rounded-xl bg-muted/40">
+          <div className="grid grid-cols-3 gap-2 pt-3 border-t border-border/60 text-center text-xs">
+            <div className="p-2.5 rounded-md bg-muted/40">
               <span className="text-[11px] text-muted-foreground block">Akurasi Opname</span>
-              <span className="font-bold text-emerald-600 dark:text-emerald-400 text-sm">99.4%</span>
+              <span className="font-semibold text-emerald-600 dark:text-emerald-400 text-sm">99.4%</span>
             </div>
-            <div className="p-2 rounded-xl bg-muted/40">
+            <div className="p-2.5 rounded-md bg-muted/40">
               <span className="text-[11px] text-muted-foreground block">Dead Stock</span>
-              <span className="font-bold text-foreground text-sm">2.1%</span>
+              <span className="font-semibold text-foreground text-sm">2.1%</span>
             </div>
-            <div className="p-2 rounded-xl bg-muted/40">
+            <div className="p-2.5 rounded-md bg-muted/40">
               <span className="text-[11px] text-muted-foreground block">On-Time Deliver</span>
-              <span className="font-bold text-blue-600 dark:text-blue-400 text-sm">98.2%</span>
+              <span className="font-semibold text-blue-600 dark:text-blue-400 text-sm">98.2%</span>
             </div>
           </div>
         </div>
@@ -733,58 +733,58 @@ export function DashboardPage() {
       {/* 5. Bottom Operations Row: Urgent Restock Table & Recent Movements */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Urgent Low Stock Alerts Table (Span 7 Cols) */}
-        <div className="lg:col-span-7 rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-7 rounded-lg border border-border bg-card p-6 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-base font-bold text-foreground tracking-tight flex items-center gap-2">
-                  <AlertTriangle className="size-4.5 text-rose-500" />
+                <h2 className="text-base font-semibold leading-6 text-foreground tracking-tight flex items-center gap-2">
+                  <AlertTriangle className="size-5 text-rose-500" />
                   Peringatan Stok Menipis Perlu Restok
                 </h2>
-                <p className="text-xs text-muted-foreground mt-0.5">
+                <p className="text-xs text-muted-foreground leading-4 mt-1">
                   Produk yang stok fisiknya telah mencapai batas aman minimum
                 </p>
               </div>
               <Link
                 to={ROUTES.INVENTORY.ALERTS}
-                className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
+                className="text-xs font-medium text-primary hover:underline inline-flex items-center gap-1"
               >
                 Lihat Semua (18) <ChevronRight className="size-3.5" />
               </Link>
             </div>
 
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto rounded-md border border-border/60">
               <table className="w-full text-left text-xs">
                 <thead>
-                  <tr className="border-b border-border/70 text-muted-foreground font-semibold">
-                    <th className="pb-2.5">Produk & SKU</th>
-                    <th className="pb-2.5">Gudang</th>
-                    <th className="pb-2.5 text-center">Sisa Stok</th>
-                    <th className="pb-2.5 text-center">Min. Stok</th>
-                    <th className="pb-2.5 text-right">Aksi</th>
+                  <tr className="h-11 border-b border-border bg-muted/40 text-[13px] text-muted-foreground font-semibold">
+                    <th className="px-3">Produk & SKU</th>
+                    <th className="px-3">Gudang</th>
+                    <th className="px-3 text-center">Sisa Stok</th>
+                    <th className="px-3 text-center">Min. Stok</th>
+                    <th className="px-3 text-right">Aksi</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-border/50">
+                <tbody className="divide-y divide-border/60">
                   {urgentLowStock.map((item) => (
-                    <tr key={item.sku} className="hover:bg-muted/40 transition-colors">
-                      <td className="py-3">
-                        <div className="font-semibold text-foreground">{item.name}</div>
-                        <div className="font-mono text-[10px] text-muted-foreground">{item.sku} • {item.category}</div>
+                    <tr key={item.sku} className="h-12 hover:bg-muted/30 transition-colors">
+                      <td className="px-3 py-2">
+                        <div className="font-medium text-foreground text-sm">{item.name}</div>
+                        <div className="font-mono text-xs text-muted-foreground">{item.sku} • {item.category}</div>
                       </td>
-                      <td className="py-3 text-muted-foreground text-[11px]">{item.warehouse}</td>
-                      <td className="py-3 text-center">
-                        <span className="font-bold text-rose-600 dark:text-rose-400 px-2 py-0.5 rounded-md bg-rose-500/10">
+                      <td className="px-3 py-2 text-muted-foreground text-xs">{item.warehouse}</td>
+                      <td className="px-3 py-2 text-center">
+                        <span className="font-medium text-rose-700 dark:text-rose-400 px-2 py-0.5 rounded-[4px] bg-rose-50 dark:bg-rose-950/40 text-xs">
                           {item.stock} Unit
                         </span>
                       </td>
-                      <td className="py-3 text-center text-muted-foreground font-medium">
+                      <td className="px-3 py-2 text-center text-muted-foreground font-medium text-xs">
                         {item.min} Unit
                       </td>
-                      <td className="py-3 text-right">
+                      <td className="px-3 py-2 text-right">
                         <button
                           type="button"
                           onClick={() => navigate(ROUTES.INBOUND.PURCHASE_ORDERS)}
-                          className="px-2.5 py-1 rounded-lg bg-primary hover:bg-primary-active text-primary-foreground text-[11px] font-semibold transition-colors cursor-pointer"
+                          className="h-8 px-3 rounded-md bg-primary hover:bg-primary-active text-primary-foreground text-[13px] font-medium transition-colors cursor-pointer"
                         >
                           Restok
                         </button>
@@ -798,35 +798,35 @@ export function DashboardPage() {
         </div>
 
         {/* Live Activity Feed (Span 5 Cols) */}
-        <div className="lg:col-span-5 rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-xs flex flex-col justify-between">
+        <div className="lg:col-span-5 rounded-lg border border-border bg-card p-6 shadow-xs flex flex-col justify-between">
           <div>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h2 className="text-base font-bold text-foreground tracking-tight flex items-center gap-2">
-                  <Clock className="size-4.5 text-primary" />
+                <h2 className="text-base font-semibold leading-6 text-foreground tracking-tight flex items-center gap-2">
+                  <Clock className="size-5 text-primary" />
                   Aktivitas Mutasi Terkini
                 </h2>
-                <p className="text-xs text-muted-foreground mt-0.5">
+                <p className="text-xs text-muted-foreground leading-4 mt-1">
                   Catatan transaksi keluar masuk barang secara real-time
                 </p>
               </div>
               <Link
                 to={ROUTES.REPORTS.MOVEMENTS}
-                className="text-xs font-semibold text-primary hover:underline inline-flex items-center gap-1"
+                className="text-xs font-medium text-primary hover:underline inline-flex items-center gap-1"
               >
                 Riwayat <ChevronRight className="size-3.5" />
               </Link>
             </div>
 
-            <div className="space-y-3.5">
+            <div className="space-y-3">
               {recentActivities.map((act) => (
                 <div
                   key={act.id}
-                  className="flex items-start gap-3 p-2.5 rounded-xl hover:bg-muted/50 transition-colors"
+                  className="flex items-start gap-3 p-3 rounded-md hover:bg-muted/40 transition-colors"
                 >
                   <div
                     className={cn(
-                      "p-2 rounded-xl shrink-0 mt-0.5",
+                      "size-8 rounded-md shrink-0 flex items-center justify-center mt-0.5",
                       act.type === "inbound"
                         ? "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
                         : act.type === "outbound"
@@ -847,11 +847,11 @@ export function DashboardPage() {
                       <span className="text-xs font-semibold text-foreground truncate">
                         {act.title}
                       </span>
-                      <span className="text-[10px] text-muted-foreground whitespace-nowrap">
+                      <span className="text-[11px] text-muted-foreground whitespace-nowrap">
                         {act.time}
                       </span>
                     </div>
-                    <p className="text-[11px] text-muted-foreground line-clamp-1 mt-0.5">
+                    <p className="text-xs text-muted-foreground line-clamp-1 mt-0.5">
                       {act.desc}
                     </p>
                   </div>
@@ -860,12 +860,12 @@ export function DashboardPage() {
             </div>
           </div>
 
-          <div className="pt-3 border-t border-border/60">
+          <div className="pt-4 border-t border-border/60 mt-4">
             <Link
               to={ROUTES.INVENTORY.OPNAME}
-              className="w-full py-2 px-3 rounded-xl border border-dashed border-border bg-muted/30 hover:bg-muted/60 text-xs font-medium text-foreground flex items-center justify-center gap-2 transition-colors"
+              className="w-full h-9 px-4 rounded-md border border-dashed border-border bg-muted/30 hover:bg-muted/60 text-sm font-medium text-foreground flex items-center justify-center gap-2 transition-colors"
             >
-              <FileSpreadsheet className="size-3.5 text-primary" />
+              <FileSpreadsheet className="size-4 text-primary" />
               <span>Mulai Sesi Stock Opname Baru</span>
             </Link>
           </div>

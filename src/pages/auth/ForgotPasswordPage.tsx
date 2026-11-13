@@ -10,13 +10,13 @@ export function ForgotPasswordPage() {
         {/* Brand Header */}
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2.5">
-            <div className="flex size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-md shadow-primary/25">
+            <div className="flex size-9 items-center justify-center rounded-md bg-primary text-primary-foreground shadow-xs shadow-primary/25">
               <Boxes className="size-5" />
             </div>
             <div className="flex flex-col">
-              <span className="text-xl font-bold tracking-tight text-foreground leading-tight flex items-center gap-1.5">
+              <span className="text-xl font-semibold tracking-tight text-foreground leading-tight flex items-center gap-1.5">
                 KelolaStok
-                <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded-md bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-soft">
+                <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded-[4px] bg-primary/10 text-primary dark:bg-primary/20 dark:text-primary-soft">
                   UMKM
                 </span>
               </span>
@@ -28,7 +28,7 @@ export function ForgotPasswordPage() {
 
           <Link
             to="/login"
-            className="inline-flex items-center gap-1.5 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
             <ArrowLeft className="size-3.5" />
             Kembali
@@ -36,12 +36,12 @@ export function ForgotPasswordPage() {
         </div>
 
         {/* Card Form Container */}
-        <div className="rounded-2xl border border-border bg-card p-6 sm:p-8 shadow-sm">
+        <div className="rounded-lg border border-border bg-card p-6 sm:p-8 shadow-xs">
           <div className="mb-6">
-            <h1 className="text-2xl font-bold tracking-tight text-card-foreground">
+            <h1 className="text-2xl font-semibold leading-8 tracking-tight text-card-foreground">
               Lupa Kata Sandi
             </h1>
-            <p className="text-sm text-muted-foreground mt-1.5">
+            <p className="text-sm text-muted-foreground leading-5 mt-1">
               Masukkan alamat email terdaftar Anda untuk menerima tautan pemulihan kata sandi.
             </p>
           </div>

@@ -158,18 +158,18 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {errorMessage && (
-        <div className="rounded-xl border border-destructive/20 bg-destructive/10 p-3.5 text-xs text-destructive flex items-center gap-2.5">
+        <div className="rounded-md border border-destructive/20 bg-destructive/10 p-3 text-xs text-destructive flex items-center gap-2">
           <AlertCircle className="size-4 shrink-0" />
           <span>{errorMessage}</span>
         </div>
       )}
 
-      <div className="space-y-1.5">
-        <label htmlFor="reset-email" className="block text-xs font-semibold text-foreground uppercase tracking-wider">
+      <div>
+        <label htmlFor="reset-email" className="block text-sm font-medium text-foreground mb-2">
           Alamat Email Terdaftar
         </label>
         <div className="relative">
-          <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4.5 text-muted-foreground/60 pointer-events-none" />
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground/60 pointer-events-none" />
           <input
             id="reset-email"
             type="email"
@@ -178,10 +178,10 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="nama@tokoukm.id"
-            className="w-full pl-10 pr-3.5 py-2.5 rounded-xl border border-input bg-background text-foreground placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all shadow-2xs"
+            className="w-full pl-9 pr-3 h-10 rounded-md border border-input bg-background text-foreground placeholder:text-muted-foreground/60 text-sm focus:outline-none focus:ring-3 focus:ring-primary/20 focus:border-slate-300 dark:focus:border-slate-600 transition-colors shadow-xs"
           />
         </div>
-        <p className="text-[11px] text-muted-foreground">
+        <p className="mt-1 text-xs text-muted-foreground leading-4">
           Kami akan mengirimkan instruksi dan tautan untuk membuat kata sandi baru.
         </p>
       </div>
@@ -189,7 +189,7 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
       <button
         type="submit"
         disabled={forgotPasswordMutation.isPending}
-        className="w-full h-11 rounded-xl bg-primary hover:bg-primary-active text-primary-foreground font-semibold text-sm transition-all duration-150 shadow-md shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
+        className="w-full h-10 px-5 rounded-md bg-primary hover:bg-primary-active text-primary-foreground font-semibold text-sm transition-colors shadow-xs shadow-primary/25 flex items-center justify-center gap-2 disabled:opacity-60 cursor-pointer"
       >
         {forgotPasswordMutation.isPending ? (
           <>
@@ -201,11 +201,11 @@ export function ForgotPasswordForm({ onBackToLogin }: ForgotPasswordFormProps) {
         )}
       </button>
 
-      <div className="text-center pt-2">
+      <div className="text-center pt-1">
         <button
           type="button"
           onClick={onBackToLogin || (() => navigate("/login"))}
-          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-muted-foreground hover:text-foreground transition-colors cursor-pointer"
         >
           <ArrowLeft className="size-3.5" /> Kembali ke Halaman Masuk
         </button>

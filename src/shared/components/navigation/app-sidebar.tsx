@@ -109,13 +109,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         collapsible="none"
         className="sidebar-theme-rail w-[72px] border-r border-sidebar-border bg-sidebar flex flex-col shrink-0"
       >
-        <SidebarHeader className="flex h-[68px] items-center justify-center p-0 border-b border-sidebar-border/60">
+        <SidebarHeader className="flex h-16 items-center justify-center p-0 border-b border-sidebar-border/60">
           <Link
             to="/inventory/summary"
-            className="sidebar-theme-logo flex size-11.5 items-center justify-center rounded-xl bg-primary hover:bg-primary-active text-primary-foreground shadow-md shadow-primary/25 hover:scale-105 active:scale-95 transition-all"
+            className="sidebar-theme-logo flex size-9 items-center justify-center rounded-md bg-primary hover:bg-primary-active text-primary-foreground shadow-xs shadow-primary/25 hover:scale-105 active:scale-95 transition-all"
             title="KelolaStok UMKM"
           >
-            <Boxes className="size-5.5" />
+            <Boxes className="size-5" />
           </Link>
         </SidebarHeader>
 
@@ -131,10 +131,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                     type="button"
                     onClick={() => handlePrimaryClick(section.id)}
                     className={cn(
-                      "sidebar-theme-nav flex size-11.5 items-center justify-center rounded-xl transition-all duration-150 cursor-pointer",
+                      "sidebar-theme-nav flex size-11 items-center justify-center rounded-md transition-all duration-150 cursor-pointer",
                       isSectionActive
-                        ? "bg-primary text-primary-foreground font-bold shadow-md shadow-primary/25 ring-1 ring-primary/20"
-                        : "text-muted-foreground hover:text-primary hover:bg-primary/10 active:scale-95"
+                        ? "bg-primary text-primary-foreground font-bold shadow-xs ring-1 ring-primary/20"
+                        : "text-slate-600 hover:text-slate-900 hover:bg-slate-100 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800/60 active:scale-95"
                     )}
                     data-active={isSectionActive}
                     aria-label={section.title}
@@ -143,7 +143,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   </button>
 
                   {/* Tooltip Hover saat menu ditutup */}
-                  <div className="absolute left-[78px] z-50 hidden rounded-lg bg-popover px-3 py-1.5 text-xs font-semibold text-popover-foreground shadow-lg border border-border group-hover:block whitespace-nowrap">
+                  <div className="absolute left-[78px] z-50 hidden rounded-md bg-popover px-3 py-1.5 text-xs font-semibold text-popover-foreground shadow-lg border border-border group-hover:block whitespace-nowrap">
                     {section.title}
                   </div>
                 </div>
@@ -162,18 +162,18 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           collapsible="none"
           className="flex-1 w-auto border-none bg-background flex flex-col"
         >
-          <SidebarHeader className="flex h-[68px] flex-row items-center justify-between border-b px-5">
-            <h2 className="text-base font-bold tracking-tight text-foreground truncate">
+          <SidebarHeader className="flex h-16 flex-row items-center justify-between border-b px-4">
+            <h2 className="text-base font-semibold tracking-tight text-foreground truncate">
               {currentSection.title}
             </h2>
             <Button
               variant="ghost"
               size="icon-sm"
-              className="size-8.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 cursor-pointer"
+              className="size-8 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 cursor-pointer"
               onClick={() => setOpenMobile(false)}
               aria-label="Tutup Menu"
             >
-              <X className="size-4.5" />
+              <X className="size-4" />
             </Button>
           </SidebarHeader>
 
@@ -192,10 +192,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       type="button"
                       onClick={() => toggleCategory(subGroup.title)}
                       className={cn(
-                        "group/cat flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer text-left",
+                        "group/cat flex w-full items-center justify-between rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer text-left",
                         isSubGroupActive
                           ? "text-primary dark:text-primary font-bold hover:bg-primary/10"
-                          : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                          : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800/50"
                       )}
                     >
                       <div className="flex items-center gap-2.5 text-left min-w-0 flex-1 pr-1.5">
@@ -204,7 +204,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                             "size-4 shrink-0 transition-colors",
                             isSubGroupActive
                               ? "text-primary dark:text-primary"
-                              : "text-muted-foreground group-hover/cat:text-primary"
+                              : "text-slate-500 group-hover/cat:text-slate-800 dark:text-slate-400 dark:group-hover/cat:text-slate-200"
                           )}
                         />
                         <span className="text-left leading-snug break-words">{subGroup.title}</span>
@@ -212,7 +212,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                       <ChevronDown
                         className={cn(
                           "size-3.5 transition-transform duration-200 shrink-0",
-                          isSubGroupActive ? "text-primary" : "text-muted-foreground/70 group-hover/cat:text-primary",
+                          isSubGroupActive ? "text-primary" : "text-slate-500 group-hover/cat:text-slate-800 dark:text-slate-400 dark:group-hover/cat:text-slate-200",
                           isOpen && "rotate-180"
                         )}
                       />
@@ -229,19 +229,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                               to={item.path}
                               onClick={() => setOpenMobile(false)}
                               className={cn(
-                                "group flex min-h-[38px] items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150",
+                                "group flex min-h-9 h-9 items-center justify-between rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-150",
                                 isActive
-                                  ? "bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/25"
-                                  : "text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/15 active:scale-[0.99]"
+                                  ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                                  : "text-slate-700 hover:text-slate-900 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60 active:scale-[0.99]"
                               )}
                             >
-                              <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                                <span
-                                  className={cn(
-                                    "size-1.5 rounded-full transition-all duration-150 shrink-0",
-                                    isActive ? "bg-primary-foreground scale-125" : "bg-muted-foreground/40 group-hover:bg-primary"
-                                  )}
-                                />
+                              <div className="flex items-center min-w-0 flex-1">
                                 <span className="truncate">{item.label}</span>
                               </div>
                               {item.badge ? (
@@ -250,7 +244,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                     "ml-2 inline-flex items-center justify-center rounded-full font-bold px-2 py-0.5 text-xs shrink-0",
                                     isActive
                                       ? "bg-primary-foreground/20 text-primary-foreground"
-                                      : "bg-primary/10 text-primary"
+                                      : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
                                   )}
                                 >
                                   {item.badge}
@@ -275,17 +269,17 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           {open && (
             <Sidebar
               collapsible="none"
-              className="w-[260px] bg-sidebar flex flex-col shrink-0 animate-in fade-in-0 slide-in-from-left-4 duration-200"
+              className="w-[260px] border-r border-sidebar-border bg-sidebar flex flex-col shrink-0 animate-in fade-in-0 slide-in-from-left-4 duration-200"
             >
-              <SidebarHeader className="flex h-[68px] justify-center border-b border-border/60 px-5">
-                <div className="flex items-center justify-between">
-                  <h2 className="text-sm font-bold tracking-tight text-foreground truncate pr-2">
+              <SidebarHeader className="flex h-16 justify-center border-b border-sidebar-border/60 px-4">
+                <div className="flex w-full items-center justify-between">
+                  <h2 className="text-sm font-semibold tracking-tight text-foreground truncate pr-2">
                     {currentSection.title}
                   </h2>
                   <Button
                     variant="ghost"
                     size="icon-sm"
-                    className="size-8.5 shrink-0 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 cursor-pointer"
+                    className="size-8 shrink-0 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10 cursor-pointer"
                     onClick={() => setOpen(false)}
                     aria-label="Collapse Menu"
                     title="Tutup Menu"
@@ -310,10 +304,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           type="button"
                           onClick={() => toggleCategory(subGroup.title)}
                           className={cn(
-                            "group/cat flex w-full items-center justify-between rounded-lg px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer text-left",
+                            "group/cat flex w-full items-center justify-between rounded-md px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors cursor-pointer text-left",
                             isSubGroupActive
                               ? "text-primary dark:text-primary font-bold hover:bg-primary/10"
-                              : "text-muted-foreground hover:text-primary hover:bg-primary/10"
+                              : "text-slate-600 hover:text-slate-900 hover:bg-slate-100/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800/50"
                           )}
                         >
                           <div className="flex items-center gap-2.5 text-left min-w-0 flex-1 pr-1.5">
@@ -322,7 +316,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                 "size-4 shrink-0 transition-colors",
                                 isSubGroupActive
                                   ? "text-primary dark:text-primary"
-                                  : "text-muted-foreground group-hover/cat:text-primary"
+                                  : "text-slate-500 group-hover/cat:text-slate-800 dark:text-slate-400 dark:group-hover/cat:text-slate-200"
                               )}
                             />
                             <span className="text-left leading-snug break-words">{subGroup.title}</span>
@@ -330,7 +324,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           <ChevronDown
                             className={cn(
                               "size-3.5 transition-transform duration-200 shrink-0",
-                              isSubGroupActive ? "text-primary" : "text-muted-foreground/70 group-hover/cat:text-primary",
+                              isSubGroupActive ? "text-primary" : "text-slate-500 group-hover/cat:text-slate-800 dark:text-slate-400 dark:group-hover/cat:text-slate-200",
                               isOpen && "rotate-180"
                             )}
                           />
@@ -346,19 +340,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                   key={item.label}
                                   to={item.path}
                                   className={cn(
-                                    "group flex min-h-[38px] items-center justify-between rounded-lg px-3 py-2 text-sm font-medium transition-all duration-150",
+                                    "group flex min-h-9 h-9 items-center justify-between rounded-md px-3 py-1.5 text-sm font-medium transition-all duration-150",
                                     isActive
-                                      ? "bg-primary text-primary-foreground font-semibold shadow-md shadow-primary/25"
-                                      : "text-muted-foreground hover:text-primary hover:bg-primary/10 dark:hover:bg-primary/15 active:scale-[0.99]"
+                                      ? "bg-primary text-primary-foreground font-semibold shadow-xs"
+                                      : "text-slate-700 hover:text-slate-900 hover:bg-slate-100/80 dark:text-slate-300 dark:hover:text-white dark:hover:bg-slate-800/60 active:scale-[0.99]"
                                   )}
                                 >
-                                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
-                                    <span
-                                      className={cn(
-                                        "size-1.5 rounded-full transition-all duration-150 shrink-0",
-                                        isActive ? "bg-primary-foreground scale-125" : "bg-muted-foreground/40 group-hover:bg-primary"
-                                      )}
-                                    />
+                                  <div className="flex items-center min-w-0 flex-1">
                                     <span className="truncate">{item.label}</span>
                                   </div>
                                   {item.badge ? (
@@ -367,7 +355,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                                         "ml-2 inline-flex items-center justify-center rounded-full font-bold px-2 py-0.5 text-xs shrink-0",
                                         isActive
                                           ? "bg-primary-foreground/20 text-primary-foreground"
-                                          : "bg-primary/10 text-primary"
+                                          : "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300"
                                       )}
                                     >
                                       {item.badge}
